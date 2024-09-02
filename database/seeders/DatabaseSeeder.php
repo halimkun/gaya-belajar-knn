@@ -15,9 +15,19 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+
+        // print on console
+        $this->command->info('SEEDING DATABASE');
+        $this->command->info('=================');
+        
+        $this->command->info('Seeding learning styles...');
+        $this->call(LearningStylesSeeder::class);
+
+        $this->command->info('Seeding questions...');
+        $this->call(QuestionsSeeder::class);
     }
 }
