@@ -14,7 +14,7 @@ class QuestionSeeder extends Seeder
     {
         $q = [
             "Ketika berbicara, kecenderungan gaya bicara saya..." => [
-                "type"      => "multiple_choice",
+                "type"      => "choice",
                 "answeres"  => [
                     "visual"      => "Saya sering menggunakan isyarat tangan atau ekspresi wajah untuk mendukung pembicaraan saya",
                     "auditory"    => "Saya berbicara dengan cepat dan berirama, menjaga intonasi suara agar terdengar dinamis",
@@ -23,7 +23,7 @@ class QuestionSeeder extends Seeder
             ],
 
             "Saya ..." => [
-                "type"      => "multiple_choice",
+                "type"      => "choice",
                 "answeres"  => [
                     "visual"      => "Mampu merencanakan dan mengatur kegiatan jangka panjang dengan baik",
                     "auditory"    => "Mampu mengulang dan menirukan nada, perubahan, dan warna suara",
@@ -32,7 +32,7 @@ class QuestionSeeder extends Seeder
             ],
 
             "Saya dapat mengingat dengan baik informasi yang..." => [
-                "type"      => "multiple_choice",
+                "type"      => "choice",
                 "answeres"  => [
                     "visual"      => "Tertulis di papan tulis atau yang diberikan melalui tugas membaca",
                     "auditory"    => "Disampaikan melalui penjelasan guru, diskusi, atau rekaman",
@@ -41,7 +41,7 @@ class QuestionSeeder extends Seeder
             ],
 
             "Saya menghafal sesuatu..." => [
-                "type"      => "multiple_choice",
+                "type"      => "choice",
                 "answeres"  => [
                     "visual"      => "Dengan membayangkannya",
                     "auditory"    => "Dengan mengucapkannya dengan suara yang keras",
@@ -50,7 +50,7 @@ class QuestionSeeder extends Seeder
             ],
 
             "Saya merasa sulit..." => [
-                "type"      => "multiple_choice",
+                "type"      => "choice",
                 "answeres"  => [
                     "visual"      => "Mengingat perintah lisan kecuali jika dituliskan",
                     "auditory"    => "Menulis tetapi pandai bercerita",
@@ -59,7 +59,7 @@ class QuestionSeeder extends Seeder
             ],
 
             "Saya lebih suka..." => [
-                "type"      => "multiple_choice",
+                "type"      => "choice",
                 "answeres"  => [
                     "visual"      => "Membaca daripada dibacakan",
                     "auditory"    => "Mendengar daripada membaca",
@@ -68,7 +68,7 @@ class QuestionSeeder extends Seeder
             ],
 
             "Saya suka..." => [
-                "type"      => "multiple_choice",
+                "type"      => "choice",
                 "answeres"  => [
                     "visual"      => "Mencoret-coret selama menelepon, mendengarkan musik, atau menghadiri rapat",
                     "auditory"    => "Membaca keras-keras dan mendengarkan musik/pembicaraan",
@@ -77,7 +77,7 @@ class QuestionSeeder extends Seeder
             ],
 
             "Saya lebih suka melakukan..." => [
-                "type"      => "multiple_choice",
+                "type"      => "choice",
                 "answeres"  => [
                     "visual"      => "Demonstrasi daripada berpidato",
                     "auditory"    => "Diskusi dan berbicara panjang lebar",
@@ -86,7 +86,7 @@ class QuestionSeeder extends Seeder
             ],
 
             "Saya lebih menyukai..." => [
-                "type"      => "multiple_choice",
+                "type"      => "choice",
                 "answeres"  => [
                     "visual"      => "Seni rupa daripada musik",
                     "auditory"    => "Musik daripada seni rupa",
@@ -95,7 +95,7 @@ class QuestionSeeder extends Seeder
             ],
 
             "Ketika mengerjakan sesuatu, saya selalu..." => [
-                "type"      => "multiple_choice",
+                "type"      => "choice",
                 "answeres"  => [
                     "visual"      => "Mengikuti petunjuk dan gambar yang disediakan",
                     "auditory"    => "Membicarakan dengan orang lain atau berbicara sendiri keras-keras",
@@ -104,7 +104,7 @@ class QuestionSeeder extends Seeder
             ],
 
             "Konsentrasi saya terganggu oleh..." => [
-                "type"      => "multiple_choice",
+                "type"      => "choice",
                 "answeres"  => [
                     "visual"      => "Ketidakteraturan atau gerakan",
                     "auditory"    => "suara atau keributan",
@@ -113,7 +113,7 @@ class QuestionSeeder extends Seeder
             ],
 
             "Saya lebih mudah belajar melalui kegiatan..." => [
-                "type"      => "multiple_choice",
+                "type"      => "choice",
                 "answeres"  => [
                     "visual"      => "Membaca",
                     "auditory"    => "Mendengarkan dan berdiskusi",
@@ -122,7 +122,7 @@ class QuestionSeeder extends Seeder
             ],
 
             "Saya berbicara dengan..." => [
-                "type"      => "multiple_choice",
+                "type"      => "choice",
                 "answeres"  => [
                     "visual"      => "Singkat dan tidak senang mendengarkan pembicaraan panjang",
                     "auditory"    => "Cepat dan senang mendengarkan",
@@ -131,7 +131,7 @@ class QuestionSeeder extends Seeder
             ],
 
             "Untuk mengetahui suasana hati seseorang, saya..." => [
-                "type"      => "multiple_choice",
+                "type"      => "choice",
                 "answeres"  => [
                     "visual"      => "Melihat ekspresi wajahnya",
                     "auditory"    => "Mendengarkan nada suara",
@@ -140,7 +140,7 @@ class QuestionSeeder extends Seeder
             ],
 
             "Untuk mengisi waktu luang, saya lebih suka..." => [
-                "type"      => "multiple_choice",
+                "type"      => "choice",
                 "answeres"  => [
                     "visual"      => "Menonton televisi atau menyaksikan pertunjukan",
                     "auditory"    => "Mendengarkan radio, musik, atau membaca",
@@ -149,7 +149,7 @@ class QuestionSeeder extends Seeder
             ],
 
             "Ketika mengajarkan sesuatu kepada orang lain, saya lebih suka..." => [
-                "type"      => "multiple_choice",
+                "type"      => "choice",
                 "answeres"  => [
                     "visual"      => "Menunjukkannya",
                     "auditory"    => "Menceritakannya",
