@@ -17,4 +17,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::resource('answers', \App\Http\Controllers\AnswerController::class);
+Route::resource('assessment-answers', \App\Http\Controllers\AssessmentAnswerController::class);
+Route::resource('assessments', \App\Http\Controllers\AssessmentController::class);
+Route::resource('educational-contents', \App\Http\Controllers\EducationalContentController::class);
+Route::resource('learning-styles', \App\Http\Controllers\LearningStyleController::class);
+Route::resource('questions', \App\Http\Controllers\QuestionController::class);
+Route::resource('user-learning-styles', \App\Http\Controllers\UserLearningStyleController::class);
+
 require __DIR__.'/auth.php';
