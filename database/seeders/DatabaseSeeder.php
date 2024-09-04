@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\PermissionRegistrar;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,21 +14,33 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Reset cached roles and permissions
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Create role guru and admin
+        foreach (['guru', 'siswa'] as $key => $value) {
+            \Spatie\Permission\Models\Role::create(['name' => $value]);
+        }
+
+        // Create demo users
+        User::factory()->create([
+            'name'  => 'Guru',
+            'email' => 'guru@mail.com',
+        ])->assignRole('guru');
+
+        User::factory()->create([
+            'name'  => 'Siswa',
+            'email' => 'siswa@mail.com',
+        ])->assignRole('siswa');
 
         // print on console
         $this->command->info('SEEDING DATABASE');
         $this->command->info('=================');
-        
+
         $this->command->info('Seeding learning styles...');
-        $this->call(LearningStylesSeeder::class);
+        $this->call(LearningStyleSeeder::class);
 
         $this->command->info('Seeding questions...');
-        $this->call(QuestionsSeeder::class);
+        $this->call(QuestionSeeder::class);
     }
 }

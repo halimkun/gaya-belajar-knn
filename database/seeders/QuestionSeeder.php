@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class QuestionsSeeder extends Seeder
+class QuestionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,7 +19,7 @@ class QuestionsSeeder extends Seeder
                     "visual"      => "Saya sering menggunakan isyarat tangan atau ekspresi wajah untuk mendukung pembicaraan saya",
                     "auditory"    => "Saya berbicara dengan cepat dan berirama, menjaga intonasi suara agar terdengar dinamis",
                     "kinesthetic" => "Saya berbicara dengan lambat sambil bergerak atau melakukan gerakan tubuh saat menyampaikan sesuatu"
-                ], 
+                ],
             ],
 
             "Saya ..." => [
@@ -28,7 +28,7 @@ class QuestionsSeeder extends Seeder
                     "visual"      => "Mampu merencanakan dan mengatur kegiatan jangka panjang dengan baik",
                     "auditory"    => "Mampu mengulang dan menirukan nada, perubahan, dan warna suara",
                     "kinesthetic" => "Mahir dalam mengerjakan puzzle, teka-teki, menyusun potongan-potongan gambar"
-                ], 
+                ],
             ],
 
             "Saya dapat mengingat dengan baik informasi yang..." => [
@@ -37,7 +37,7 @@ class QuestionsSeeder extends Seeder
                     "visual"      => "Tertulis di papan tulis atau yang diberikan melalui tugas membaca",
                     "auditory"    => "Disampaikan melalui penjelasan guru, diskusi, atau rekaman",
                     "kinesthetic" => "Diberikan dengan cara menuliskannya berkali-kali"
-                ], 
+                ],
             ],
 
             "Saya menghafal sesuatu..." => [
@@ -46,7 +46,7 @@ class QuestionsSeeder extends Seeder
                     "visual"      => "Dengan membayangkannya",
                     "auditory"    => "Dengan mengucapkannya dengan suara yang keras",
                     "kinesthetic" => "Sambil berjalan dan melihat-lihat keadaan sekeliling"
-                ], 
+                ],
             ],
 
             "Saya merasa sulit..." => [
@@ -55,7 +55,7 @@ class QuestionsSeeder extends Seeder
                     "visual"      => "Mengingat perintah lisan kecuali jika dituliskan",
                     "auditory"    => "Menulis tetapi pandai bercerita",
                     "kinesthetic" => "Duduk tenang untuk waktu yang lama"
-                ], 
+                ],
             ],
 
             "Saya lebih suka..." => [
@@ -64,7 +64,7 @@ class QuestionsSeeder extends Seeder
                     "visual"      => "Membaca daripada dibacakan",
                     "auditory"    => "Mendengar daripada membaca",
                     "kinesthetic" => "Menggunakan model dan praktek atau praktikum"
-                ], 
+                ],
             ],
 
             "Saya suka..." => [
@@ -73,7 +73,7 @@ class QuestionsSeeder extends Seeder
                     "visual"      => "Mencoret-coret selama menelepon, mendengarkan musik, atau menghadiri rapat",
                     "auditory"    => "Membaca keras-keras dan mendengarkan musik/pembicaraan",
                     "kinesthetic" => "Mengetuk-ngetuk pena, jari, atau kaki saat mendengarkan musik/pembicaraan"
-                ], 
+                ],
             ],
 
             "Saya lebih suka melakukan..." => [
@@ -82,7 +82,7 @@ class QuestionsSeeder extends Seeder
                     "visual"      => "Demonstrasi daripada berpidato",
                     "auditory"    => "Diskusi dan berbicara panjang lebar",
                     "kinesthetic" => "Berolahraga dan kegiatan fisik lainnya"
-                ], 
+                ],
             ],
 
             "Saya lebih menyukai..." => [
@@ -91,7 +91,7 @@ class QuestionsSeeder extends Seeder
                     "visual"      => "Seni rupa daripada musik",
                     "auditory"    => "Musik daripada seni rupa",
                     "kinesthetic" => "Olahraga dan kegiatan fisik lainnya"
-                ], 
+                ],
             ],
 
             "Ketika mengerjakan sesuatu, saya selalu..." => [
@@ -100,7 +100,7 @@ class QuestionsSeeder extends Seeder
                     "visual"      => "Mengikuti petunjuk dan gambar yang disediakan",
                     "auditory"    => "Membicarakan dengan orang lain atau berbicara sendiri keras-keras",
                     "kinesthetic" => "Mencari tahu cara kerjanya sambil mengerjakannya"
-                ], 
+                ],
             ],
 
             "Konsentrasi saya terganggu oleh..." => [
@@ -109,7 +109,7 @@ class QuestionsSeeder extends Seeder
                     "visual"      => "Ketidakteraturan atau gerakan",
                     "auditory"    => "suara atau keributan",
                     "kinesthetic" => "Kegiatan di sekeliling"
-                ], 
+                ],
             ],
 
             "Saya lebih mudah belajar melalui kegiatan..." => [
@@ -118,7 +118,7 @@ class QuestionsSeeder extends Seeder
                     "visual"      => "Membaca",
                     "auditory"    => "Mendengarkan dan berdiskusi",
                     "kinesthetic" => "Praktek atau praktikum"
-                ], 
+                ],
             ],
 
             "Saya berbicara dengan..." => [
@@ -127,7 +127,7 @@ class QuestionsSeeder extends Seeder
                     "visual"      => "Singkat dan tidak senang mendengarkan pembicaraan panjang",
                     "auditory"    => "Cepat dan senang mendengarkan",
                     "kinesthetic" => "Menggunakan isyarat tubuh dan gerakan-gerakan ekspresif"
-                ], 
+                ],
             ],
 
             "Untuk mengetahui suasana hati seseorang, saya..." => [
@@ -136,7 +136,7 @@ class QuestionsSeeder extends Seeder
                     "visual"      => "Melihat ekspresi wajahnya",
                     "auditory"    => "Mendengarkan nada suara",
                     "kinesthetic" => "Memperhatikan gerakan badannya"
-                ], 
+                ],
             ],
 
             "Untuk mengisi waktu luang, saya lebih suka..." => [
@@ -145,7 +145,7 @@ class QuestionsSeeder extends Seeder
                     "visual"      => "Menonton televisi atau menyaksikan pertunjukan",
                     "auditory"    => "Mendengarkan radio, musik, atau membaca",
                     "kinesthetic" => "Melakukan permainan atau bekerja dengan menggunakan tangan"
-                ], 
+                ],
             ],
 
             "Ketika mengajarkan sesuatu kepada orang lain, saya lebih suka..." => [
@@ -154,20 +154,20 @@ class QuestionsSeeder extends Seeder
                     "visual"      => "Menunjukkannya",
                     "auditory"    => "Menceritakannya",
                     "kinesthetic" => "Mendemonstrasikannya dan meminta mereka untuk mencobanya"
-                ], 
+                ],
             ]
         ];
 
         foreach ($q as $key => $question) {
-            $qInput = \App\Models\Questions::create([
+            $qInput = \App\Models\Question::create([
                 'question' => $key,
                 'type'     => $question['type']
             ]);
 
             foreach ($question['answeres'] as $type => $answer) {
-                $lId = \App\Models\LearningStyles::where('type', $type)->first()->id;
+                $lId = \App\Models\LearningStyle::where('type', $type)->first()->id;
 
-                \App\Models\Answers::create([
+                \App\Models\Answer::create([
                     'question_id'       => $qInput->id,
                     'answer'            => $answer,
                     'learning_style_id' => $lId

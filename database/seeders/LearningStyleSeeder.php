@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class LearningStylesSeeder extends Seeder
+class LearningStyleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,7 +19,7 @@ class LearningStylesSeeder extends Seeder
         ];
 
         foreach ($learningStyles as $learningStyle) {
-            \App\Models\LearningStyles::create($learningStyle);
+            \App\Models\LearningStyle::create($learningStyle);
         }
     }
 }
