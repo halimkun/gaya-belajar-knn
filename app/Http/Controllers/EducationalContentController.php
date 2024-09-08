@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Models\LearningStyle;
 use App\Models\EducationalContent;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use App\Http\Requests\EducationalContentRequest;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use App\Http\Requests\EducationalContentRequest;
 
 class EducationalContentController extends Controller
 {
@@ -16,7 +17,7 @@ class EducationalContentController extends Controller
      */
     public function index(Request $request): View
     {
-        $educationalContents = EducationalContent::paginate();
+        $educationalContents = EducationalContent::with('learningStyle')->paginate();
 
         return view('educational-content.index', compact('educationalContents'))
             ->with('i', ($request->input('page', 1) - 1) * $educationalContents->perPage());
@@ -28,8 +29,9 @@ class EducationalContentController extends Controller
     public function create(): View
     {
         $educationalContent = new EducationalContent();
+        $learningStyles     = LearningStyle::all();
 
-        return view('educational-content.create', compact('educationalContent'));
+        return view('educational-content.create', compact('educationalContent', 'learningStyles'));
     }
 
     /**
@@ -48,7 +50,7 @@ class EducationalContentController extends Controller
      */
     public function show($id): View
     {
-        $educationalContent = EducationalContent::find($id);
+        $educationalContent = EducationalContent::with('learningStyle')->find($id);
 
         return view('educational-content.show', compact('educationalContent'));
     }
@@ -59,8 +61,9 @@ class EducationalContentController extends Controller
     public function edit($id): View
     {
         $educationalContent = EducationalContent::find($id);
+        $learningStyles     = LearningStyle::all();
 
-        return view('educational-content.edit', compact('educationalContent'));
+        return view('educational-content.edit', compact('educationalContent', 'learningStyles'));
     }
 
     /**
