@@ -24,7 +24,7 @@ class Question extends Model
 {
     use SoftDeletes;
 
-    protected $perPage = 20;
+    protected $perPage = 10;
 
     /**
      * The attributes that are mass assignable.
@@ -39,7 +39,7 @@ class Question extends Model
      */
     public function answers()
     {
-        return $this->hasMany(\App\Models\Answer::class, 'id', 'question_id');
+        return $this->hasMany(\App\Models\Answer::class, 'question_id', 'id');
     }
     
     /**
@@ -47,7 +47,7 @@ class Question extends Model
      */
     public function assessmentAnswers()
     {
-        return $this->hasMany(\App\Models\AssessmentAnswer::class, 'id', 'question_id');
+        return $this->hasMany(\App\Models\AssessmentAnswer::class, 'question_id', 'id');
     }
     
 }
