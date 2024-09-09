@@ -1,18 +1,18 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Questions') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-full mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+        <div class="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
+            <div class="bg-white p-4 shadow dark:bg-gray-800 dark:text-white sm:rounded-lg sm:p-8">
                 <div class="w-full">
                     <div class="sm:flex sm:items-center">
                         <div class="sm:flex-auto">
-                            <h1 class="text-base font-semibold leading-6 text-gray-900">{{ __('Questions') }}</h1>
-                            <p class="mt-2 text-sm text-gray-700">A list of all the {{ __('Questions') }}.</p>
+                            <h1 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">{{ __('Questions') }}</h1>
+                            <p class="mt-2 text-sm text-gray-700 dark:text-gray-400">A list of all the {{ __('Questions') }}.</p>
                         </div>
                         <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                             <a type="button" href="{{ route('questions.create') }}" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add new</a>
@@ -22,36 +22,49 @@
                     <div class="flow-root">
                         <div class="mt-8 overflow-x-auto">
                             <div class="inline-block min-w-full py-2 align-middle">
-                                <table class="w-full divide-y divide-gray-300">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">No</th>
-                                        
-									<th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Question</th>
-									<th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Type</th>
+                                <table class="w-full divide-y divide-gray-300 dark:divide-gray-700">
+                                    <thead class="bg-gray-50 dark:bg-gray-900">
+                                        <tr>
+                                            <th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-white">No</th>
 
-                                        <th scope="col" class="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500"></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-gray-200 bg-white">
-                                    @foreach ($questions as $question)
-                                        <tr class="even:bg-gray-50">
-                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-semibold text-gray-900">{{ ++$i }}</td>
-                                            
-										<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $question->question }}</td>
-										<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $question->type }}</td>
+                                            <th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-white">Question</th>
+                                            <th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-white">Type</th>
+                                            <th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-white">Answer</th>
 
-                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
-                                                <form action="{{ route('questions.destroy', $question->id) }}" method="POST">
-                                                    <a href="{{ route('questions.show', $question->id) }}" class="text-gray-600 font-bold hover:text-gray-900 mr-2">{{ __('Show') }}</a>
-                                                    <a href="{{ route('questions.edit', $question->id) }}" class="text-indigo-600 font-bold hover:text-indigo-900  mr-2">{{ __('Edit') }}</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <a href="{{ route('questions.destroy', $question->id) }}" class="text-red-600 font-bold hover:text-red-900" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;">{{ __('Delete') }}</a>
-                                                </form>
-                                            </td>
+                                            <th scope="col" class="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-white"></th>
                                         </tr>
-                                    @endforeach
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800 dark:text-white">
+                                        @foreach ($questions as $question)
+                                            <tr class="even:bg-gray-50 dark:bg-gray-800 dark:text-white dark:even:bg-gray-700">
+                                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-semibold text-gray-900 dark:text-gray-200">{{ ++$i }}</td>
+
+                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $question->question }}</td>
+                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $question->type }}</td>
+                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">
+                                                    @if ($question->type == 'multiple_choice' || $question->type == 'choice')
+                                                        {{-- badge count of coice --}}
+                                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-700/50 dark:text-emerald-400">
+                                                            {{ $question->answers->count() }} Items
+                                                        </span>
+                                                    @else
+                                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-amber-100 text-amber-800 dark:bg-amber-700/50 dark:text-amber-400">
+                                                            {{ $question->answers->count() }} Items
+                                                        </span>
+                                                    @endif
+                                                </td>
+
+                                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-200">
+                                                    <form action="{{ route('questions.destroy', $question->id) }}" method="POST">
+                                                        <a href="{{ route('questions.show', $question->id) }}" class="mr-2 font-bold text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-400">{{ __('Show') }}</a>
+                                                        <a href="{{ route('questions.edit', $question->id) }}" class="mr-2 font-bold text-indigo-600 hover:text-indigo-900 dark:hover:text-indigo-400">{{ __('Edit') }}</a>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <a href="{{ route('questions.destroy', $question->id) }}" class="font-bold text-red-600 hover:text-red-900 dark:hover:text-red-400" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;">{{ __('Delete') }}</a>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
 

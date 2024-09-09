@@ -13,6 +13,12 @@ class QuestionSeeder extends Seeder
     public function run(): void
     {
         $q = [
+            "Nilai Matematika terendah yang pernah di dapat..." => [
+                "type"      => "number"
+            ],
+            "Nilai PJOK terendah yang pernah didapat..." => [
+                "type"      => "number"
+            ],
             "Ketika berbicara, kecenderungan gaya bicara saya..." => [
                 "type"      => "choice",
                 "answeres"  => [
@@ -163,6 +169,10 @@ class QuestionSeeder extends Seeder
                 'question' => $key,
                 'type'     => $question['type']
             ]);
+
+            if ($question['type'] == 'number') {
+                continue;
+            }
 
             foreach ($question['answeres'] as $type => $answer) {
                 $lId = \App\Models\LearningStyle::where('type', $type)->first()->id;

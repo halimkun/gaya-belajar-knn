@@ -16,7 +16,7 @@ class QuestionController extends Controller
      */
     public function index(Request $request): View
     {
-        $questions = Question::paginate();
+        $questions = Question::with('answers')->paginate();
 
         return view('question.index', compact('questions'))
             ->with('i', ($request->input('page', 1) - 1) * $questions->perPage());
@@ -48,7 +48,7 @@ class QuestionController extends Controller
      */
     public function show($id): View
     {
-        $question = Question::find($id);
+        $question = Question::with('answers')->find($id);
 
         return view('question.show', compact('question'));
     }
