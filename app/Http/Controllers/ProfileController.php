@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\ProfileDetailUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -18,6 +19,7 @@ class ProfileController extends Controller
     {
         return view('profile.edit', [
             'user' => $request->user(),
+            'detail' => $request->user()->siswaDetail,
         ]);
     }
 
@@ -35,6 +37,21 @@ class ProfileController extends Controller
         $request->user()->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    /**
+     * Update the user's profile detail information.
+     */
+    public function updateDetail(ProfileDetailUpdateRequest $request): RedirectResponse
+    {
+        if ($request->user()->siswaDetail) {
+            $request->user()->siswaDetail->fill($request->validated());
+            $request->user()->siswaDetail->save();
+        } else {
+            $request->user()->siswaDetail()->create($request->validated());
+        }
+
+        return Redirect::route('profile.edit');
     }
 
     /**

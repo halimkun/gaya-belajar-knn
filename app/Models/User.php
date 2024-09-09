@@ -55,4 +55,28 @@ class User extends Authenticatable
     {
         return $this->hasRole('admin');
     }
+
+    /**
+     * Determine if the user is a siswa.
+     *
+     * @return bool
+     */
+    public function isDetailComplete(): bool
+    {
+        if ($this->hasRole('siswa')) {
+            return $this->siswaDetail->isComplete();
+        }
+
+        return true;
+    }
+
+
+    /**
+     * Get the siswa detail associated with the user.
+     */
+    public function siswaDetail()
+    {
+        return $this->hasOne(SiswaDetail::class);
+    }
+
 }
