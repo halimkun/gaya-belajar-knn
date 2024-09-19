@@ -79,4 +79,19 @@ class User extends Authenticatable
         return $this->hasOne(SiswaDetail::class);
     }
 
+    /**
+     * Get the assessments for the user.
+     */
+    public function assessments()
+    {
+        return $this->hasMany(Assessment::class)->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Get the user learning styles for the user.
+     */
+    public function userLearningStyles()
+    {
+        return $this->hasMany(UserLearningStyle::class);
+    }
 }
