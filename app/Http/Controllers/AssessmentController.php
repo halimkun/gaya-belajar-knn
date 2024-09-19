@@ -28,8 +28,9 @@ class AssessmentController extends Controller
     public function create(): View
     {
         $assessment = new Assessment();
+        $questions  = \App\Models\Question::with('answers')->get();
 
-        return view('assessment.create', compact('assessment'));
+        return view('assessment.create', compact('assessment', 'questions'));
     }
 
     /**
@@ -37,7 +38,35 @@ class AssessmentController extends Controller
      */
     public function store(AssessmentRequest $request): RedirectResponse
     {
-        Assessment::create($request->validated());
+        \Illuminate\Support\Facades\DB::transaction(function () use ($request) {
+            $assessment = Assessment::create([
+                'user_id' => auth()->id(),
+            ]);
+
+            // Remove user_id from the request
+            $allAnswers = $request->validated();
+            unset($allAnswers['user_id']);
+
+            $assessment_answers = [];
+            foreach ($allAnswers as $key => $value) {
+                [$type, $questionId] = explode('_', $key);
+
+                $assessment_answers[] = [
+                    'assessment_id' => $assessment->id,
+                    'question_id'   => ($questionId - 8),
+                ];
+
+                if (in_array($type, ['choice', 'multiple_choice'])) {
+                    $assessment_answers[count($assessment_answers) - 1]['answer_id'] = $value;
+                    $assessment_answers[count($assessment_answers) - 1]['answer']    = null;
+                } else {
+                    $assessment_answers[count($assessment_answers) - 1]['answer_id'] = null;
+                    $assessment_answers[count($assessment_answers) - 1]['answer'] = $value;
+                }
+            }
+
+            \App\Models\AssessmentAnswer::insert($assessment_answers);
+        });
 
         return Redirect::route('assessments.index')
             ->with('success', 'Assessment created successfully.');
@@ -59,8 +88,9 @@ class AssessmentController extends Controller
     public function edit($id): View
     {
         $assessment = Assessment::find($id);
+        $questions  = \App\Models\Question::with('answers')->get();
 
-        return view('assessment.edit', compact('assessment'));
+        return view('assessment.edit', compact('assessment', 'questions'));
     }
 
     /**
