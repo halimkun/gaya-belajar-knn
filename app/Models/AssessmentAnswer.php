@@ -44,6 +44,16 @@ class AssessmentAnswer extends Model
     {
         return $this->belongsTo(\App\Models\Answer::class, 'answer_id', 'id');
     }
+
+    /**
+     * Alias for `answer`
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function userAnswer()
+    {
+        return $this->belongsTo(\App\Models\Answer::class, 'answer_id', 'id');
+    }
     
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

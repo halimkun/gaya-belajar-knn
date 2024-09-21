@@ -78,8 +78,9 @@ class AssessmentController extends Controller
     public function show($id): View
     {
         $assessment = Assessment::find($id);
+        $answers = \App\Models\AssessmentAnswer::with('question.answers')->where('assessment_id', $id)->get();
 
-        return view('assessment.show', compact('assessment'));
+        return view('assessment.show', compact('assessment', 'answers'));
     }
 
     /**

@@ -36,7 +36,15 @@
                             <p>Asesmen ini bertujuan untuk mengetahui <span class="font-bold text-indigo-500 dark:text-indigo-200">gaya belajar anda</span>. Dengan memahami gaya belajar anda, guru dapat menyesuaikan metode pembelajaran yang paling sesuai, sehingga diharapkan anda dapat belajar dengan lebih efektif dan efisien. Selain itu, dengan mengisi asesmen ini, anda juga akan <span class="font-semibold text-orange-400 dark:text-orange-200">mendapatkan konten rekomendasi dari guru untuk belajar tambahan</span> .</p>
                         </div>
                     @else
-                    {{-- TODO : lalnjutkan --}}
+                        {{-- anda sudah mengisi assesment, silahkan melihat hasil assesment --}}
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h1 class="text-lg font-bold">Hasil Asesmen Gaya Belajar Anda</h1>
+                                <p class="text-sm text-gray-400">Anda telah mengisi asesmen karakter anda.</p>
+                            </div>
+                            {{-- add order by created_at --}}
+                            <a href="{{ route('assessments.show', Auth::user()->assessments->sortByDesc('created_at')->first()) }}" class="rounded bg-indigo-500 px-4 py-2 text-sm text-white hover:bg-indigo-700">Lihat Hasil Asesmen</a>
+                        </div>
                     @endif
                 </div>
             </div>
