@@ -16,7 +16,8 @@ class AssessmentController extends Controller
      */
     public function index(Request $request): View
     {
-        $assessments = Assessment::paginate();
+        // $assessments = Assessment::paginate();
+        $assessments = Assessment::with('user')->paginate();
 
         return view('assessment.index', compact('assessments'))
             ->with('i', ($request->input('page', 1) - 1) * $assessments->perPage());
