@@ -25,8 +25,14 @@ class AssessmentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create(): View | RedirectResponse
     {
+        // is guru
+        if (auth()->user()->hasRole('guru')) {
+            return Redirect::route('assessments.index')
+                ->with('error', 'You are not allowed to create assessment. Only student can create assessment.');
+        }
+
         $assessment = new Assessment();
         $questions  = \App\Models\Question::with('answers')->get();
 
