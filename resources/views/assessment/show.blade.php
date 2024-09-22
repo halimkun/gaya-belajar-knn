@@ -12,7 +12,7 @@
                     <div class="sm:flex sm:items-center">
                         <div class="sm:flex-auto">
                             <h1 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">{{ __('Show') }} Assessment</h1>
-                            <p class="mt-2 text-sm text-gray-700 dark:text-white">Details of your assessment</p>
+                            <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Details of your assessment</p>
                             {{-- date of assessment --}}
                             <div class="">
                                 <p class="text-xs text-gray-600 dark:text-gray-400">This assessment was taken on <span class="text-indigo-500 font-bold">{{ $assessment->created_at->translatedFormat('l, F j, Y') }}</span></p>

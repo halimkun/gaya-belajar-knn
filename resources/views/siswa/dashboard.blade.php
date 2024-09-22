@@ -18,7 +18,7 @@
                                 <h1 class="text-lg font-bold">Lengkapi Data Diri Anda</h1>
                                 <p class="text-sm text-gray-400">Silahkan lengkapi data diri anda terlebih dahulu sebelum melanjutkan.</p>
                             </div>
-                            <a href="{{ route('profile.edit', ['ref' => route('dashboard')]) }}" class="rounded bg-indigo-500 px-4 py-2 text-sm text-white hover:bg-indigo-700">Lengkapi Data Diri</a>
+                            <a href="{{ route('profile.edit', ['ref' => route('dashboard')]) }}" class="rounded-lg bg-indigo-500 px-4 py-2 text-sm text-white hover:bg-indigo-700">Lengkapi Data Diri</a>
                         </div>
                     @endif
                     <div class="my-4 border-b border-gray-300 dark:border-gray-700"></div>
@@ -29,7 +29,7 @@
                                 <h1 class="text-lg font-bold">Isi Asesmen Gaya Belajar Anda</h1>
                                 <p class="text-sm text-gray-400">Silahkan isi asesmen karakter anda terlebih dahulu sebelum melanjutkan.</p>
                             </div>
-                            <a href="{{ route('assessments.create') }}" class="rounded bg-indigo-500 px-4 py-2 text-sm text-white hover:bg-indigo-700">Isi Asesmen</a>
+                            <a href="{{ route('assessments.create') }}" class="rounded-lg bg-indigo-500 px-4 py-2 text-sm text-white hover:bg-indigo-700">Isi Asesmen</a>
                         </div>
 
                         <div class="mt-4 max-w-2xl text-sm text-gray-400">
@@ -43,7 +43,7 @@
                                 <p class="text-sm text-gray-400">Anda telah mengisi asesmen karakter anda.</p>
                             </div>
                             {{-- add order by created_at --}}
-                            <a href="{{ route('assessments.show', Auth::user()->assessments->sortByDesc('created_at')->first()) }}" class="rounded bg-indigo-500 px-4 py-2 text-sm text-white hover:bg-indigo-700">Lihat Hasil Asesmen</a>
+                            <a href="{{ route('assessments.show', Auth::user()->assessments->sortByDesc('created_at')->first()) }}" class="rounded-lg bg-indigo-500 px-4 py-2 text-sm text-white hover:bg-indigo-700">Lihat Hasil Asesmen</a>
                         </div>
                     @endif
                 </div>
