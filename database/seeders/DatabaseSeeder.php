@@ -42,5 +42,8 @@ class DatabaseSeeder extends Seeder
 
         $this->command->info('Seeding questions...');
         $this->call(QuestionSeeder::class);
+
+        $this->command->info('Seeding datasets...');
+        $this->call(DatasetSeeder::class);
     }
 }
