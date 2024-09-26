@@ -2,41 +2,57 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Class User
+ *
+ * @property $id
+ * @property $name
+ * @property $email
+ * @property $email_verified_at
+ * @property $password
+ * @property $remember_token
+ * @property $created_at
+ * @property $updated_at
+ *
+ * @property Assessment[] $assessments
+ * @property SiswaDetail[] $siswaDetails
+ * @property UserLearningStyle[] $userLearningStyles
+ * @package App
+ */
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
+
+    /**
+     * The number of models to return for pagination.
+     *
+     * @var int
+     */
+    protected $perPage = 20;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $fillable = ['name', 'email', 'password'];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * The attributes that should be hidden for arrays.
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast to native types.
      *
-     * @return array<string, string>
+     * @var array<int, string>
      */
     protected function casts(): array
     {
@@ -47,11 +63,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Determine if the user is an administrator.
-     *
-     * @return bool
+     * Determine if the user has the given role.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function isAdmin(): bool
+    public function isAdmin()
     {
         return $this->hasRole('admin');
     }
@@ -64,34 +80,37 @@ class User extends Authenticatable
     public function isDetailComplete(): bool
     {
         if ($this->hasRole('siswa')) {
-            return $this->siswaDetail->isComplete();
+            if ($this->siswaDetails) {
+                return $this->siswaDetails->isComplete();
+            } 
+
+            return false;
         }
 
         return true;
     }
 
-
     /**
-     * Get the siswa detail associated with the user.
-     */
-    public function siswaDetail()
-    {
-        return $this->hasOne(SiswaDetail::class);
-    }
-
-    /**
-     * Get the assessments for the user.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function assessments()
     {
-        return $this->hasMany(Assessment::class)->orderBy('created_at', 'desc');
+        return $this->hasMany(\App\Models\Assessment::class, 'id', 'user_id')->orderBy('created_at', 'desc');
     }
 
     /**
-     * Get the user learning styles for the user.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function siswaDetails()
+    {
+        return $this->hasOne(\App\Models\SiswaDetail::class, 'id', 'user_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function userLearningStyles()
     {
-        return $this->hasMany(UserLearningStyle::class);
+        return $this->hasMany(\App\Models\UserLearningStyle::class, 'id', 'user_id');
     }
 }
