@@ -44,11 +44,11 @@
                                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">
                                                     @if ($question->type == 'multiple_choice' || $question->type == 'choice')
                                                         {{-- badge count of coice --}}
-                                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-700/50 dark:text-emerald-400">
+                                                        <span class="inline-flex rounded-full bg-emerald-100 px-2 text-xs font-semibold leading-5 text-emerald-800 dark:bg-emerald-700/50 dark:text-emerald-400">
                                                             {{ $question->answers->count() }} Items
                                                         </span>
                                                     @else
-                                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-amber-100 text-amber-800 dark:bg-amber-700/50 dark:text-amber-400">
+                                                        <span class="inline-flex rounded-full bg-amber-100 px-2 text-xs font-semibold leading-5 text-amber-800 dark:bg-amber-700/50 dark:text-amber-400">
                                                             {{ $question->answers->count() }} Items
                                                         </span>
                                                     @endif
