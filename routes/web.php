@@ -16,6 +16,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::resource('users', \App\Http\Controllers\UserController::class);
 Route::resource('answers', \App\Http\Controllers\AnswerController::class);
 Route::resource('assessment-answers', \App\Http\Controllers\AssessmentAnswerController::class);
 Route::resource('assessments', \App\Http\Controllers\AssessmentController::class);
