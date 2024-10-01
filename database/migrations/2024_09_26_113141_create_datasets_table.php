@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->string('nama')->default(null);
             $table->string('jk');
-            $table->string('tgl_lahir');
+            $table->date('tgl_lahir');
             $table->string('jurusan');
             $table->string('kelas');
             $table->double('mtk');
