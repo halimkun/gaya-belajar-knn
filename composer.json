@@ -11,9 +11,12 @@
         "php": "^8.2",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
+        "rubix/ml": "^2.5",
+        "rubix/tensor": "^3.0",
         "spatie/laravel-permission": "^6.9"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.1",
         "fakerphp/faker": "^1.23",
         "ibex/crud-generator": "^2.1",
         "laravel/breeze": "^2.1",
