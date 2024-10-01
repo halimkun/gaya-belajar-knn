@@ -15,12 +15,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property $created_at
  * @property $updated_at
  * @property $deleted_at
- *
  * @property Assessment $assessment
  * @property LearningStyle $learningStyle
  * @property User $user
  * @package App
- * 
+ * @method static \Illuminate\Database\Eloquent\Builder|UserLearningStyle newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserLearningStyle newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserLearningStyle onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserLearningStyle query()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserLearningStyle whereAssessmentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserLearningStyle whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserLearningStyle whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserLearningStyle whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserLearningStyle whereLearningStyleId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserLearningStyle whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserLearningStyle whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserLearningStyle withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserLearningStyle withoutTrashed()
+ * @mixin \Eloquent
+ * @mixin IdeHelperUserLearningStyle
  */
 class UserLearningStyle extends Model
 {

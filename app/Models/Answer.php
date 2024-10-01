@@ -15,12 +15,26 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property $created_at
  * @property $updated_at
  * @property $deleted_at
- *
  * @property LearningStyle $learningStyle
  * @property Question $question
  * @property AssessmentAnswer[] $assessmentAnswers
  * @package App
- * 
+ * @property-read int|null $assessment_answers_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Answer newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Answer newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Answer onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Answer query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Answer whereAnswer($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Answer whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Answer whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Answer whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Answer whereLearningStyleId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Answer whereQuestionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Answer whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Answer withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Answer withoutTrashed()
+ * @mixin \Eloquent
+ * @mixin IdeHelperAnswer
  */
 class Answer extends Model
 {

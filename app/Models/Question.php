@@ -14,11 +14,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property $created_at
  * @property $updated_at
  * @property $deleted_at
- *
  * @property Answer[] $answers
  * @property AssessmentAnswer[] $assessmentAnswers
  * @package App
- * 
+ * @property-read int|null $answers_count
+ * @property-read int|null $assessment_answers_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Question newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Question newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Question onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Question query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Question whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Question whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Question whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Question whereQuestion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Question whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Question whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Question withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Question withoutTrashed()
+ * @mixin \Eloquent
+ * @mixin IdeHelperQuestion
  */
 class Question extends Model
 {

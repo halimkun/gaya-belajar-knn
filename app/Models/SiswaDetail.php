@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class SiswaDetail
- * 
+ *
  * @property $id
  * @property $user_id
  * @property $kelas
@@ -18,10 +18,23 @@ use Illuminate\Database\Eloquent\Model;
  * @property $alamat
  * @property $created_at
  * @property $updated_at
- * 
  * @property User $user
- * 
  * @package App
+ * @method static \Illuminate\Database\Eloquent\Builder|SiswaDetail newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SiswaDetail newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SiswaDetail query()
+ * @method static \Illuminate\Database\Eloquent\Builder|SiswaDetail whereAlamat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SiswaDetail whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SiswaDetail whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SiswaDetail whereJurusan($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SiswaDetail whereKelas($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SiswaDetail whereNoHp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SiswaDetail whereTanggalLahir($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SiswaDetail whereTempatLahir($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SiswaDetail whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SiswaDetail whereUserId($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperSiswaDetail
  */
 class SiswaDetail extends Model
 {

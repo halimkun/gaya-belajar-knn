@@ -16,12 +16,27 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property $created_at
  * @property $updated_at
  * @property $deleted_at
- *
  * @property Answer $answer
  * @property Assessment $assessment
  * @property Question $question
  * @package App
- * 
+ * @property-read \App\Models\Answer|null $userAnswer
+ * @method static \Illuminate\Database\Eloquent\Builder|AssessmentAnswer newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|AssessmentAnswer newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|AssessmentAnswer onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|AssessmentAnswer query()
+ * @method static \Illuminate\Database\Eloquent\Builder|AssessmentAnswer whereAnswer($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AssessmentAnswer whereAnswerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AssessmentAnswer whereAssessmentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AssessmentAnswer whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AssessmentAnswer whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AssessmentAnswer whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AssessmentAnswer whereQuestionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AssessmentAnswer whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AssessmentAnswer withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|AssessmentAnswer withoutTrashed()
+ * @mixin \Eloquent
+ * @mixin IdeHelperAssessmentAnswer
  */
 class AssessmentAnswer extends Model
 {

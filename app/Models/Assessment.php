@@ -13,12 +13,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property $created_at
  * @property $updated_at
  * @property $deleted_at
- *
  * @property User $user
  * @property AssessmentAnswer[] $assessmentAnswers
  * @property UserLearningStyle[] $userLearningStyles
  * @package App
- * 
+ * @property-read int|null $assessment_answers_count
+ * @property-read int|null $user_learning_styles_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Assessment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Assessment newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Assessment onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Assessment query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Assessment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Assessment whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Assessment whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Assessment whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Assessment whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Assessment withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Assessment withoutTrashed()
+ * @mixin \Eloquent
+ * @mixin IdeHelperAssessment
  */
 class Assessment extends Model
 {
