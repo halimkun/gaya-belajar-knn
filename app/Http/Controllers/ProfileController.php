@@ -48,7 +48,10 @@ class ProfileController extends Controller
             $request->user()->siswaDetail->fill($request->validated());
             $request->user()->siswaDetail->save();
         } else {
-            $request->user()->siswaDetail()->create($request->validated());
+            $data = $request->validated();
+            $data['user_id'] = $request->user()->id;
+
+            $request->user()->siswaDetail()->create($data);
         }
 
         return Redirect::route('profile.edit');
