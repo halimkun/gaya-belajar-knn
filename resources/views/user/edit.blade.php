@@ -21,7 +21,7 @@
 
                     <div class="flow-root">
                         <div class="mt-8 overflow-x-auto">
-                            <div class="max-w-full py-2 align-middle">
+                            <div class="max-w-7xl py-2 align-middle">
                                 <div class="mb-5">
                                     <div class="border-l-4 border-sky-400 bg-sky-50 p-4 dark:border-sky-500 dark:bg-sky-900">
                                         <div class="flex">

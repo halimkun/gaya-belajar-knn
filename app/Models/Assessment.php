@@ -60,7 +60,7 @@ class Assessment extends Model
      */
     public function assessmentAnswers()
     {
-        return $this->hasMany(\App\Models\AssessmentAnswer::class, 'id', 'assessment_id');
+        return $this->hasMany(\App\Models\AssessmentAnswer::class, 'assessment_id', 'id');
     }
     
     /**

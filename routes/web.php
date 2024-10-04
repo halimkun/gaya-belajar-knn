@@ -21,11 +21,12 @@ Route::resource('test', \App\Http\Controllers\TestController::class);
 
 Route::resource('users', \App\Http\Controllers\UserController::class);
 Route::resource('answers', \App\Http\Controllers\AnswerController::class);
-Route::resource('assessment-answers', \App\Http\Controllers\AssessmentAnswerController::class);
-Route::resource('assessments', \App\Http\Controllers\AssessmentController::class);
-Route::resource('educational-contents', \App\Http\Controllers\EducationalContentController::class);
-Route::resource('learning-styles', \App\Http\Controllers\LearningStyleController::class);
+Route::resource('datasets', \App\Http\Controllers\DatasetController::class)->only(['index']);
 Route::resource('questions', \App\Http\Controllers\QuestionController::class);
+Route::resource('assessments', \App\Http\Controllers\AssessmentController::class);
+Route::resource('learning-styles', \App\Http\Controllers\LearningStyleController::class);
+Route::resource('assessment-answers', \App\Http\Controllers\AssessmentAnswerController::class);
 Route::resource('user-learning-styles', \App\Http\Controllers\UserLearningStyleController::class);
+Route::resource('educational-contents', \App\Http\Controllers\EducationalContentController::class);
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

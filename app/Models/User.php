@@ -19,7 +19,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property $created_at
  * @property $updated_at
  * @property Assessment[] $assessments
- * @property SiswaDetail[] $siswaDetails
+ * @property SiswaDetail[] $siswaDetail
  * @property UserLearningStyle[] $userLearningStyles
  * @package App
  * @property-read int|null $assessments_count
@@ -105,9 +105,9 @@ class User extends Authenticatable
     public function isDetailComplete(): bool
     {
         if ($this->hasRole('siswa')) {
-            if ($this->siswaDetails) {
-                return $this->siswaDetails->isComplete();
-            } 
+            if ($this->siswaDetail) {
+                return $this->siswaDetail->isComplete();
+            }
 
             return false;
         }
@@ -126,9 +126,9 @@ class User extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function siswaDetails()
+    public function siswaDetail()
     {
-        return $this->hasOne(\App\Models\SiswaDetail::class, 'id', 'user_id');
+        return $this->hasOne(\App\Models\SiswaDetail::class, 'user_id', 'id');
     }
 
     /**
