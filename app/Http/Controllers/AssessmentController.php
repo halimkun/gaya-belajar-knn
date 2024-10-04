@@ -75,8 +75,61 @@ class AssessmentController extends Controller
             \App\Models\AssessmentAnswer::insert($assessment_answers);
         });
 
-        return Redirect::route('assessments.index')
-            ->with('success', 'Assessment created successfully.');
+        $assessment = Assessment::with('assessmentAnswers.answer.learningStyle')->where('user_id', auth()->id())->latest()->first();
+        if ($assessment) {
+            $score = \App\Helpers\ScoreHelper::calculateLearningStyleScore($assessment->assessmentAnswers);
+
+            // Filter answers that have 'answer_id' as null
+            $answers = $assessment->assessmentAnswers->where('answer_id', null);
+
+            // Initialize the dataset and average variables
+            $datasetOthersData = [
+                "mtk" => null,
+                "pjok" => null,
+            ];
+
+            $average = 0;
+            $index = 0;
+
+            // Assign answers to dataset and calculate the average
+            foreach ($datasetOthersData as $key => &$value) {
+                // Check if answer exists and is numeric
+                if (isset($answers[$index]) && is_numeric($answers[$index]->answer)) {
+                    $value = (float) $answers[$index]->answer; // Cast to double
+                } else {
+                    $value = 0; // Set default value if not valid
+                }
+
+                $average += $value;
+                $index++;
+            }
+
+            // Calculate the score safely
+            $datasetOthersData['skor'] = count($datasetOthersData) > 0 ? $average / count($datasetOthersData) : 0;
+
+            // Merge final data and predict label
+            $finalData = array_merge($score, $datasetOthersData);
+            $finalData['label'] = \App\Helpers\KNNHelper::predict($finalData);
+
+            $inputFinalData = array_merge($finalData, [
+                'nama' => auth()->user()->name,
+                'jk' => auth()->user()->siswaDetail->jk,
+                'tgl_lahir' => auth()->user()->siswaDetail->tanggal_lahir,
+                'jurusan' => auth()->user()->siswaDetail->jurusan,
+                'kelas' => auth()->user()->siswaDetail->kelas,
+            ]);
+
+            \App\Models\Dataset::create($inputFinalData);
+            $lastDataset = \App\Models\Dataset::latest()->first();
+
+            $assessment->update([
+                'dataset_id' => $lastDataset->id,
+            ]);
+        } else {
+            \Log::warning('No assessment found for user: ' . auth()->id());
+        }
+
+        return Redirect::route('assessments.index')->with('success', 'Assessment created successfully.');
     }
 
     /**
