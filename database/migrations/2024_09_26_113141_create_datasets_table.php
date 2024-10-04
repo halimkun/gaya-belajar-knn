@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('datasets', function (Blueprint $table) {
             $table->id();
 
-            $table->string('nama')->default(null);
-            $table->string('jk');
-            $table->date('tgl_lahir');
-            $table->string('jurusan');
-            $table->string('kelas');
+            $table->string('nama')->default(null)->nullable();
+            $table->string('jk')->default(null)->nullable();
+            $table->date('tgl_lahir')->default(null)->nullable();
+            $table->string('jurusan')->default(null)->nullable();
+            $table->string('kelas')->default(null)->nullable();
             $table->double('mtk');
             $table->double('pjok');
             $table->double('visual');
@@ -26,10 +26,15 @@ return new class extends Migration
             $table->double('kinestetik');
             $table->double('skor');
 
-            $table->string('label')->nullable();
+            $table->string('label')->nullable()->default(null);
 
             $table->timestamps();
             $table->softDeletes();
+        });
+
+        // alter columns to assessments after user_id table to foreign key with datasets table
+        Schema::table('assessments', function (Blueprint $table) {
+            $table->foreignId('dataset_id')->after('user_id')->nullable()->default(null)->constrained()->onDelete('cascade');
         });
     }
 

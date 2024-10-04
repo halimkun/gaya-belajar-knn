@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Helpers\LearningStyleHelper;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatasetSeeder extends Seeder
 {
@@ -118,5 +117,59 @@ class DatasetSeeder extends Seeder
             // Insert data ke database
             \App\Models\Dataset::create($data);
         }
+
+
+
+        // faker data for testing
+        $faker = \Faker\Factory::create('id_ID');
+
+        for ($i = 0; $i < rand(394, 666); $i++) {
+            $data = [
+                "nama"       => $faker->firstName . ' ' . $faker->lastName,
+                "jk"         => $faker->randomElement(['Laki-Laki', 'Perempuan']),
+                "kelas"      => $faker->randomElement([10, 11, 12]),
+                "jurusan"    => $faker->randomElement(['ANIMASI', 'TKJ', 'PPLG']),
+                "mtk"        => $faker->numberBetween(40, 100),
+                "pjok"       => $faker->numberBetween(60, 100),
+            ];
+
+            // Set tgl_lahir based on kelas
+            if ($data['kelas'] == 10) {
+                $data['tgl_lahir'] = $faker->dateTimeBetween('-16 years', '-15 years')->format('Y-m-d');
+            } elseif ($data['kelas'] == 11) {
+                $data['tgl_lahir'] = $faker->dateTimeBetween('-17 years', '-16 years')->format('Y-m-d');
+            } else {
+                $data['tgl_lahir'] = $faker->dateTimeBetween('-18 years', '-17 years')->format('Y-m-d');
+            }
+
+            // Ensure the total of visual, auditori, and kinestetik is 16
+            $total = 16;
+            $data['visual'] = $faker->numberBetween(0, $total);
+            $remaining = $total - $data['visual'];
+            $data['auditori'] = $faker->numberBetween(0, $remaining);
+            $data['kinestetik'] = $remaining - $data['auditori'];
+
+            // if skor is not set, calculate it
+            if (!isset($data['skor'])) {
+                $data['skor'] = ($data['mtk'] + $data['pjok']) / 2;
+            }
+
+            // Panggil helper untuk menentukan gaya belajar
+            $data['label'] = LearningStyleHelper::determineLearningStyle($data['visual'], $data['auditori'], $data['kinestetik']);
+
+            // Insert data ke database
+            \App\Models\Dataset::create($data);
+        }
+
+
+        // echo count of dataset 
+        $count = \App\Models\Dataset::count();
+        $this->command->info("Berhasil menambahkan $count data pada tabel dataset");
+
+        // detail data, pisahka antara data yang di seeding dan data yang di faker, tampilkan jumlah saja
+        $count_seeding = count($dataset);
+        $count_faker = $count - $count_seeding;
+        $this->command->info("Seeding data: $count_seeding");
+        $this->command->info("Faker data: $count_faker");
     }
 }
