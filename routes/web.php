@@ -17,7 +17,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
 
-Route::resource('test', \App\Http\Controllers\TestController::class);
+    Route::resource('learning-materials', \App\Http\Controllers\LearningMaterials::class);
     Route::resource('users', \App\Http\Controllers\UserController::class);
     Route::resource('answers', \App\Http\Controllers\AnswerController::class);
     Route::resource('datasets', \App\Http\Controllers\DatasetController::class)->only(['index']);
