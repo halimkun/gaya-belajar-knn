@@ -50,9 +50,8 @@
                                                 </td>
                                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">
                                                     @if (\Str::lower($dataset->jk) == 'perempuan')
-                                                        {{-- with symbol --}}
                                                         <span class="rounded-full bg-pink-200 px-2 py-0.5 text-pink-600">{{ $dataset->jk }}</span>
-                                                    @else
+                                                    @elseif (\Str::lower($dataset->jk) == 'laki-laki' || \Str::lower($dataset->jk) == 'laki laki' || \Str::lower($dataset->jk) == 'laki - laki')
                                                         <span class="rounded-full bg-blue-200 px-2 py-0.5 text-blue-600">{{ $dataset->jk }}</span>
                                                     @endif
                                                 </td>
@@ -68,7 +67,7 @@
                                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->auditori }}</td>
                                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->kinestetik }}</td>
                                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->skor }}</td>
-                                                <td class="whitespace-nowrap bg-emerald-100 dark:bg-emerald-800 px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->label }}</td>
+                                                <td class="whitespace-nowrap {{ $dataset->label ? "bg-emerald-100 dark:bg-emerald-800" : "bg-rose-100 dark:bg-rose-800" }} px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->label }}</td>
 
                                                 {{-- <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
                                                     <a href="{{ route('datasets.show', $dataset->id) }}" class="mr-2 font-bold text-gray-600 hover:text-gray-900">{{ __('Show') }}</a>

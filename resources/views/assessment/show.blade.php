@@ -13,16 +13,35 @@
                         <div class="sm:flex-auto">
                             <h1 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">Assessment {{ __('Result') }}</h1>
                             <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Final result of your assessment</p>
-                            {{-- date of assessment --}}
-                            <div class="">
-                                <p class="text-xs text-gray-600 dark:text-gray-400">This assessment was taken on <span class="font-bold text-indigo-500">{{ $assessment->created_at->translatedFormat('l, F j, Y') }}</span></p>
-                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="flow-root">
-                    {{-- TODO : tampilkan skor hasil perhitungan gaya belajar menggunakan KNN --}}
+                <div class="flow-root mt-5">
+                    <table class="table w-full table-auto">
+                        <thead class="bg-gray-50 dark:bg-gray-700 dark:text-white rounded-lg">
+                            <tr class="text-left">
+                                <th class="px-4 py-2">Assessment Name</th>
+                                <th class="px-4 py-2">Assessment Date</th>
+                                <th class="px-4 py-2">Result</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white dark:bg-gray-800 dark:text-white">
+                                <td class="px-4 py-2">{{ $assessment->user->name }}</td>
+                                <td class="px-4 py-2">{{ $assessment->created_at->translatedFormat('l, F j, Y') }}</td>
+                                <td class="px-4 py-2">{{ $assessment->dataset->label }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="mt-5">
+                        {{-- show conrats message and inform the user, they can access learning materials to improve their skills, make in bahasa --}}
+                        <div class="p-4 rounded-lg bg-sky-50 border border-sky-200 text-sky-800 dark:bg-sky-900 dark:border-sky-700 dark:text-sky-200" role="alert">
+                            <p><strong class="font-bold text-lg">Selamat! <span class="text-2xl">🎉</span></strong></p>
+                            <p class="mt-2"><span class="block sm:inline">Anda telah menyelesaikan penilaian gaya belajar Anda. Anda dapat mengakses materi pembelajaran untuk meningkatkan keterampilan Anda. Materi pembalajaran ini sudah disesuaikan dengan gaya belajar Anda. Jika Anda memerlukan bantuan lebih lanjut, jangan ragu untuk menghubungi kami.</span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
