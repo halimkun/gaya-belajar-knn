@@ -10,7 +10,7 @@ class KNNHelper
     {
         try {
             // Mengirim permintaan POST ke endpoint : https://knn-model.7p43.my.id/predict
-            $response = Http::post('http://172.24.19.22:8896/predict', $data);
+            $response = Http::post(env("MODEL_REST_URL", null), $data);
 
             // Memeriksa apakah respons berhasil
             if ($response->successful()) {
