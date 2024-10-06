@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CustomNumberHelper;
 use App\Models\Assessment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -112,11 +113,11 @@ class AssessmentController extends Controller
             $finalData['label'] = \App\Helpers\KNNHelper::predict($finalData);
 
             $inputFinalData = array_merge($finalData, [
-                'nama' => auth()->user()->name,
-                'jk' => auth()->user()->siswaDetail->jk,
+                'nama'      => auth()->user()->name,
+                'jk'        => auth()->user()->siswaDetail->jk,
                 'tgl_lahir' => auth()->user()->siswaDetail->tanggal_lahir,
-                'jurusan' => auth()->user()->siswaDetail->jurusan,
-                'kelas' => auth()->user()->siswaDetail->kelas,
+                'jurusan'   => auth()->user()->siswaDetail->jurusan,
+                'kelas'     => CustomNumberHelper::toArabic(auth()->user()->siswaDetail->kelas),
             ]);
 
             \App\Models\Dataset::create($inputFinalData);
@@ -129,7 +130,11 @@ class AssessmentController extends Controller
             \Log::warning('No assessment found for user: ' . auth()->id());
         }
 
-        return Redirect::route('assessments.index')->with('success', 'Assessment created successfully.');
+        if (auth()->user()->hasRole('guru')) {
+            return Redirect::route('assessments.index')->with('success', 'Assessment created successfully.');
+        }
+
+        return Redirect::route('dashboard')->with('success', 'Assessment created successfully.');
     }
 
     /**
