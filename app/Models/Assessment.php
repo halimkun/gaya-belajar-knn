@@ -44,7 +44,7 @@ class Assessment extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['user_id'];
+    protected $fillable = ['user_id', 'dataset_id'];
 
 
     /**
@@ -71,4 +71,11 @@ class Assessment extends Model
         return $this->hasMany(\App\Models\UserLearningStyle::class, 'id', 'assessment_id');
     }
     
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function dataset()
+    {
+        return $this->belongsTo(\App\Models\Dataset::class, 'dataset_id', 'id');
+    }
 }

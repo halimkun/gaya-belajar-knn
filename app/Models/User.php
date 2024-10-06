@@ -120,7 +120,7 @@ class User extends Authenticatable
      */
     public function assessments()
     {
-        return $this->hasMany(\App\Models\Assessment::class, 'id', 'user_id')->orderBy('created_at', 'desc');
+        return $this->hasMany(\App\Models\Assessment::class, 'user_id', 'id')->orderBy('created_at', 'desc');
     }
 
     /**
