@@ -19,6 +19,11 @@ class LearningMaterials extends Controller
         }
 
         $assessment = $user->assessments()->orderBy('created_at', 'desc')->first();
+        // check if dataset exist and label not null
+        if (!$assessment || !$assessment->dataset || !$assessment->dataset->label) {
+            return redirect()->back()->with('error', 'Penilaian anda tidak di temukan atau belum tersedia, silahkan coba lagi, terima kasih.');
+        }
+
         $learningStyles = \Illuminate\Support\Str::lower(trim($assessment->dataset->label));
         $expLearningStyles = explode('-', $learningStyles);
 
@@ -37,9 +42,12 @@ class LearningMaterials extends Controller
             $educationalContents = \App\Models\EducationalContent::all();
         }
 
-        $educationalContents = \App\Models\EducationalContent::whereIn('learning_style_id', $learningStylesId)->get();
+        $educationalContents = \App\Models\EducationalContent::whereIn('learning_style_id', $learningStylesId)->paginate(9);
 
-        // TODO : show educational contents based on learning styles
+        return view('learning-materials.index', [
+            'educationalContents' => $educationalContents,
+            'assessment' => $assessment,
+        ]);
     }
 
     /**
