@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __('Create') }} Assessment
+        <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-white">
+            {{ __('Penilaian') }}
         </h2>
     </x-slot>
 
@@ -11,8 +11,8 @@
                 <div class="w-full">
                     <div class="sm:flex sm:items-center">
                         <div class="sm:flex-auto">
-                            <h1 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">{{ __('Fill') }} Assessment</h1>
-                            <p class="mt-2 text-sm text-gray-700 dark:text-gray-400">Fill new {{ __('Assessment') }}.</p>
+                            <h1 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">Buat Penilaian Baru</h1>
+                            <p class="mt-2 text-sm text-gray-700 dark:text-gray-400">Isi formulir di bawah ini untuk membuat penilaian baru anda untuk menentukan gaya belajar anda.</p>
                         </div>
                         {{-- <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                             <a type="button" href="{{ route('assessments.index') }}" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Back</a>

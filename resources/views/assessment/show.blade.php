@@ -9,21 +9,21 @@
         <div class="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
             <div class="bg-white p-4 shadow dark:bg-gray-800 dark:text-white sm:rounded-lg sm:p-8">
                 <div class="w-full">
-                    <div class="sm:flex sm:items-center w-full">
+                    <div class="w-full sm:flex sm:items-center">
                         <div class="sm:flex-auto">
-                            <h1 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">Assessment {{ __('Result') }}</h1>
-                            <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Final result of your assessment</p>
+                            <h1 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">Hasil Penilaian</h1>
+                            <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Hasil akhir penilaian gaya belajar Anda.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="flow-root mt-5">
+                <div class="mt-5 flow-root">
                     <table class="table w-full table-auto">
-                        <thead class="bg-gray-50 dark:bg-gray-700 dark:text-white rounded-lg">
+                        <thead class="rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white">
                             <tr class="text-left">
-                                <th class="px-4 py-2">Assessment Name</th>
-                                <th class="px-4 py-2">Assessment Date</th>
-                                <th class="px-4 py-2">Result</th>
+                                <th class="px-4 py-2">Nama Siswa</th>
+                                <th class="px-4 py-2">Tanggal Penilaian</th>
+                                <th class="px-4 py-2">Gaya Belajar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,8 +37,8 @@
 
                     <div class="mt-5">
                         {{-- show conrats message and inform the user, they can access learning materials to improve their skills, make in bahasa --}}
-                        <div class="p-4 rounded-lg bg-sky-50 border border-sky-200 text-sky-800 dark:bg-sky-900 dark:border-sky-700 dark:text-sky-200" role="alert">
-                            <p><strong class="font-bold text-lg">Selamat! <span class="text-2xl">🎉</span></strong></p>
+                        <div class="rounded-lg border border-sky-200 bg-sky-50 p-4 text-sky-800 dark:border-sky-700 dark:bg-sky-900 dark:text-sky-200" role="alert">
+                            <p><strong class="text-lg font-bold">Selamat! <span class="text-2xl">🎉</span></strong></p>
                             <p class="mt-2"><span class="block sm:inline">Anda telah menyelesaikan penilaian gaya belajar Anda. Anda dapat mengakses materi pembelajaran untuk meningkatkan keterampilan Anda. Materi pembalajaran ini sudah disesuaikan dengan gaya belajar Anda. Jika Anda memerlukan bantuan lebih lanjut, jangan ragu untuk menghubungi kami.</span></p>
                         </div>
                     </div>
@@ -49,11 +49,11 @@
         <div class="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
             <div class="bg-white p-4 shadow dark:bg-gray-800 dark:text-white sm:rounded-lg sm:p-8">
                 <div class="w-full" x-data="{ selected: null }">
-                    <div class="flex flex-row lg:flex-row gap-4 items-center justify-between" x-on:click="selected !== 1 ? selected = 1 : selected = null">
-                        <div class="sm:flex sm:items-center w-full">
+                    <div class="flex flex-row items-center justify-between gap-4 lg:flex-row" x-on:click="selected !== 1 ? selected = 1 : selected = null">
+                        <div class="w-full sm:flex sm:items-center">
                             <div class="sm:flex-auto">
-                                <h1 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">{{ __('Show') }} Assessment</h1>
-                                <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Details of your assessment</p>
+                                <h1 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">Detail Penilaian</h1>
+                                <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Detail penilaian gaya belajar anda</p>
                             </div>
                             {{-- <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                                 <a type="button" href="{{ route('assessments.index') }}" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Back</a>
@@ -67,7 +67,7 @@
                     </div>
 
 
-                    <div class="flow-root relative max-h-0 overflow-hidden transition-all duration-700" x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
+                    <div class="relative flow-root max-h-0 overflow-hidden transition-all duration-700" x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
                         <div class="mt-8 overflow-x-auto">
                             <div class="inline-block min-w-full py-2 align-middle">
                                 <div class="mt-6 border-t border-gray-100 dark:border-gray-700">

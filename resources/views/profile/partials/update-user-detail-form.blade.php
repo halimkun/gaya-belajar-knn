@@ -1,10 +1,10 @@
 <section>
     <header>
         <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Update User Detail') }}
+            {{ __('Perbarui Detail Pengguna') }}
         </h2>
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __("Update your account's user detail.") }}
+            {{ __("Perbarui detail pengguna akun Anda.") }}
         </p>
     </header>
 
@@ -26,8 +26,19 @@
             </div>
 
             <div class="w-full">
+                <?php 
+                    $jurusan = ["ANIMASI", "PPLG", "RPL", "TKJ"];
+                    sort($jurusan);
+                ?>
+                
                 <x-input-label for="jurusan" :value="__('Jurusan')" />
-                <x-text-input id="jurusan" name="jurusan" type="text" class="mt-1 block w-full" :value="old('jurusan', $detail?->jurusan)" required autofocus autocomplete="off" />
+                {{-- <x-text-input id="jurusan" name="jurusan" type="text" class="mt-1 block w-full" :value="old('jurusan', $detail?->jurusan)" required autofocus autocomplete="off" /> --}}
+                <select id="jurusan" name="jurusan" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600" required autofocus autocomplete="off">
+                    <option value="">-- {{ __('Pilih Jurusan') }} --</option>
+                    @foreach ($jurusan as $item)
+                        <option value="{{ $item }}" {{ old('jurusan', $detail?->jurusan) === $item ? 'selected' : '' }}>{{ $item }}</option>
+                    @endforeach
+                </select>
                 <x-input-error class="mt-2" :messages="$errors->get('jurusan')" />
             </div>
         </div>
