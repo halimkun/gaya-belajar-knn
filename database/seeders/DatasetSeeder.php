@@ -123,7 +123,7 @@ class DatasetSeeder extends Seeder
         // faker data for testing
         $faker = \Faker\Factory::create('id_ID');
 
-        for ($i = 0; $i < rand(394, 666); $i++) {
+        for ($i = 0; $i < rand(294, 466); $i++) {
             $data = [
                 "nama"       => $faker->firstName . ' ' . $faker->lastName,
                 "jk"         => $faker->randomElement(['Laki-Laki', 'Perempuan']),

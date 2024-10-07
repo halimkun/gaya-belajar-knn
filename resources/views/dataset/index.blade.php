@@ -35,9 +35,15 @@
                                             <th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:dark:text-white">Aud</th>
                                             <th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:dark:text-white">Kin</th>
                                             <th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:dark:text-white">Skor</th>
-                                            <th scope="col" class="bg-emerald-100 dark:bg-emerald-800 py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:dark:text-white">Label</th>
+                                            <th scope="col" class="bg-emerald-100 py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:bg-emerald-800 dark:dark:text-white">Label</th>
 
-                                            {{-- <th scope="col" class="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:dark:text-white"></th> --}}
+                                            <th scope="col" class="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:dark:text-white text-center">
+                                                <span class="fill-gray-500 dark:fill-gray-200">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                                        <path d="m240-160 40-160H120l20-80h160l40-160H180l20-80h160l40-160h80l-40 160h160l40-160h80l-40 160h160l-20 80H660l-40 160h160l-20 80H600l-40 160h-80l40-160H360l-40 160h-80Zm140-240h160l40-160H420l-40 160Z" />
+                                                    </svg>
+                                                </span>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800 dark:text-white">
@@ -57,7 +63,7 @@
                                                 </td>
                                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">
                                                     {{ $dataset->tgl_lahir->format('d M Y') }}
-                                                    <p class="w-fit rounded-lg bg-gray-200 dark:bg-gray-600 px-1.5 text-sm">{{ $dataset->tgl_lahir->age }} Tahun</p>
+                                                    <p class="w-fit rounded-lg bg-gray-200 px-1.5 text-sm dark:bg-gray-600">{{ $dataset->tgl_lahir->age }} Tahun</p>
                                                 </td>
                                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->jurusan }}</td>
                                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->kelas }}</td>
@@ -67,11 +73,18 @@
                                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->auditori }}</td>
                                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->kinestetik }}</td>
                                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->skor }}</td>
-                                                <td class="whitespace-nowrap {{ $dataset->label ? "bg-emerald-100 dark:bg-emerald-800" : "bg-rose-100 dark:bg-rose-800" }} px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->label }}</td>
+                                                <td class="{{ $dataset->label ? 'bg-emerald-100 dark:bg-emerald-800' : 'bg-rose-100 dark:bg-rose-800' }} whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->label }}</td>
 
-                                                {{-- <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
-                                                    <a href="{{ route('datasets.show', $dataset->id) }}" class="mr-2 font-bold text-gray-600 hover:text-gray-900">{{ __('Show') }}</a>
-                                                </td> --}}
+                                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
+                                                    {{-- <a href="{{ route('datasets.show', $dataset->id) }}" class="mr-2 font-bold text-gray-600 hover:text-gray-900">{{ __('Show') }}</a> --}}
+                                                    <form action="{{ route('datasets.destroy', $dataset->id) }}" method="POST">
+                                                        <a href="{{ route('users.destroy', $dataset->id) }}" class="fill-red-900 font-bold text-red-600 hover:text-red-900 dark:fill-red-400 dark:hover:text-red-400" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                                                <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                                                            </svg>
+                                                        </a>
+                                                    </form>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

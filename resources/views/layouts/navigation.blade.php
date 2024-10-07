@@ -1,6 +1,6 @@
-<nav x-data="{ open: false }" class="sticky top-0 border-b border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800">
+<nav x-data="{ open: false }" class="sticky top-0 z-50 border-b border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800">
     <!-- Primary Navigation Menu -->
-    <div class="mx-auto px-4 sm:px-6 lg:px-8"> <!-- INFO : default width class max-w-7xl -->
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"> <!-- INFO : default width class max-w-7xl -->
         <div class="flex h-16 justify-between">
             <div class="flex">
                 <!-- Logo -->
@@ -26,10 +26,12 @@
 
                     {{-- TODO : set menu siswa --}}
                     @if (Auth()->user()->hasRole('siswa'))
-                        <x-nav-link :href="route('learning-materials.index')" :active="request()->routeIs('learning-materials.index')">
-                            {{ __('Meterial Pembelajaran') }}
-                            <span class="animate-bounce ml-1">💎</span>
-                        </x-nav-link>
+                        @if (Auth()->user()->assessments && Auth()->user()->assessments->count() > 0)
+                            <x-nav-link :href="route('learning-materials.index')" :active="request()->routeIs('learning-materials.index')">
+                                {{ __('Meterial Pembelajaran') }}
+                                <span class="ml-1 animate-bounce">💎</span>
+                            </x-nav-link>
+                        @endif
                     @endif
                 </div>
             </div>

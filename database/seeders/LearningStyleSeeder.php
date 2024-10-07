@@ -13,9 +13,9 @@ class LearningStyleSeeder extends Seeder
     public function run(): void
     {
         $learningStyles = [
-            ['type' => 'visual', 'description' => 'Visual learners learn best by seeing.'],
-            ['type' => 'auditory', 'description' => 'Auditory learners learn best by hearing.'],
-            ['type' => 'kinesthetic', 'description' => 'Kinesthetic learners learn best by doing.'],
+            ['type' => 'visual', 'description' => 'Pembelajar visual belajar paling baik dengan melihat.'],
+            ['type' => 'auditory', 'description' => 'Pembelajar auditori belajar paling baik dengan mendengar.'],
+            ['type' => 'kinesthetic', 'description' => 'Pembelajar kinestetik belajar paling baik dengan melakukan atau bergerak.'],
         ];
 
         foreach ($learningStyles as $learningStyle) {

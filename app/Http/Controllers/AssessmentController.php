@@ -127,7 +127,7 @@ class AssessmentController extends Controller
                 'dataset_id' => $lastDataset->id,
             ]);
         } else {
-            \Log::warning('No assessment found for user: ' . auth()->id());
+            return redirect()->back()->with('error', 'Terjadi masalah saat menyimpan data. Silahkan coba lagi atau hubungi admin.');
         }
 
         if (auth()->user()->hasRole('guru')) {

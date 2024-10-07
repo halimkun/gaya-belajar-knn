@@ -20,7 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('learning-materials', \App\Http\Controllers\LearningMaterials::class);
     Route::resource('users', \App\Http\Controllers\UserController::class);
     Route::resource('answers', \App\Http\Controllers\AnswerController::class);
-    Route::resource('datasets', \App\Http\Controllers\DatasetController::class)->only(['index']);
+    Route::resource('datasets', \App\Http\Controllers\DatasetController::class)->only(['index', 'destroy']);
     Route::resource('questions', \App\Http\Controllers\QuestionController::class);
     Route::resource('assessments', \App\Http\Controllers\AssessmentController::class);
     Route::resource('learning-styles', \App\Http\Controllers\LearningStyleController::class);
