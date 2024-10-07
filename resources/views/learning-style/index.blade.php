@@ -43,11 +43,14 @@
 
                                                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-white">
                                                     <form action="{{ route('learning-styles.destroy', $learningStyle->id) }}" method="POST">
-                                                        <a href="{{ route('learning-styles.show', $learningStyle->id) }}" class="mr-2 font-bold text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-400">{{ __('Show') }}</a>
-                                                        <a href="{{ route('learning-styles.edit', $learningStyle->id) }}" class="mr-2 font-bold text-indigo-600 hover:text-indigo-900 dark:hover:text-indigo-400">{{ __('Edit') }}</a>
                                                         @csrf
                                                         @method('DELETE')
-                                                        <a href="{{ route('learning-styles.destroy', $learningStyle->id) }}" class="font-bold text-red-600 hover:text-red-900 dark:hover:text-red-400" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;">{{ __('Delete') }}</a>
+                                                        <a href="{{ route('learning-styles.show', $learningStyle->id) }}" class="mr-2 font-bold text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-400">{{ __('Show') }}</a>
+
+                                                        @if (!in_array(\Str::lower($learningStyle->type), ['visual', 'auditory', 'kinesthetic']))
+                                                            <a href="{{ route('learning-styles.edit', $learningStyle->id) }}" class="mr-2 font-bold text-indigo-600 hover:text-indigo-900 dark:hover:text-indigo-400">{{ __('Edit') }}</a>
+                                                            <a href="{{ route('learning-styles.destroy', $learningStyle->id) }}" class="font-bold text-red-600 hover:text-red-900 dark:hover:text-red-400" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;">{{ __('Delete') }}</a>
+                                                        @endif
                                                     </form>
                                                 </td>
                                             </tr>
