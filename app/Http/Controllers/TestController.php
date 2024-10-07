@@ -9,8 +9,50 @@ class TestController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('export') && $request->export == 'csv') {
+            $dataset = \App\Models\Dataset::get();
+            $filename = 'datasets.csv';
+            $headers = [
+                "Content-Type"        => "text/csv",
+                "Content-Disposition" => "attachment; filename=\"$filename\"",
+            ];
+
+            $callback = function () use ($dataset) {
+                $file = fopen('php://output', 'w');
+
+                // Mendapatkan nama kolom dari database
+                $columns = \Schema::getColumnListing((new \App\Models\Dataset())->getTable());
+
+                // Mengecualikan kolom tertentu
+                $excludeColumns = ['id', 'created_at', 'updated_at', 'deleted_at'];
+                $columns = array_diff($columns, $excludeColumns);
+
+                // Menambahkan header kolom ke file CSV
+                fputcsv($file, $columns);
+
+                // Menulis data ke dalam file CSV
+                foreach ($dataset as $data) {
+                    // Ambil data hanya untuk kolom yang ingin disertakan
+                    $filteredData = $data->only($columns);
+
+                    // Memformat tgl_lahir ke format Y-m-d jika ada
+                    if (isset($filteredData['tgl_lahir'])) {
+                        $filteredData['tgl_lahir'] = \Carbon\Carbon::parse($filteredData['tgl_lahir'])->format('Y-m-d');
+                    }
+
+                    fputcsv($file, $filteredData);
+                }
+
+                fclose($file);
+            };
+
+            return response()->stream($callback, 200, $headers);
+        }
+
+
+
         // get all data from database
         $dataset = \App\Models\Dataset::get();
 
@@ -39,48 +81,43 @@ class TestController extends Controller
         $dataset = new \Rubix\ML\Datasets\Labeled($sampel->toArray(), $label->toArray());
 
         // split
-        // [$training, $testing] = $dataset->randomize()->stratifiedSplit(0.6);
+        [$training, $testing] = $dataset->randomize()->stratifiedSplit(0.6);
 
         // ===== Train
         // preprocessing data
-        $dataset->apply(new \App\RubixCustom\Transformer\CustomLabelTransformer())
+        $training->apply(new \App\RubixCustom\Transformer\CustomLabelTransformer())
             ->apply(new \Rubix\ML\Transformers\ZScaleStandardizer());
 
         // train the model
-        $estimator->train($dataset);
+        $estimator->train($training);
 
-        // Validate
-        $validator = new \Rubix\ML\CrossValidation\HoldOut(0.2);
-        $score = $validator->test($estimator, $dataset, new \Rubix\ML\CrossValidation\Metrics\Accuracy());
-
-        // // ===== Predict
-        // // preprocessing data
-        // $testing->apply(new \App\RubixCustom\Transformer\CustomLabelTransformer())
-        //     ->apply(new \Rubix\ML\Transformers\ZScaleStandardizer());
-
-        // // predict the data
-        // $prediction = $estimator->predict($testing);
-
-        // // ===== Evaluate
-        // $metric = new \Rubix\ML\CrossValidation\Metrics\Accuracy();
-
-        // $score = $metric->score($prediction, $testing->labels());
-
-        $userInput = [
-            ["jk" => "laki-laki", "tgl_lahir" => 18, "jurusan" => "TKJ", "kelas" => 10, "mtk" => 75, "pjok" => 80, "visual" => 8, "auditori" => 4, "kinestetik" => 4, "skor" => 77.5],
-            // ["jk" => "perempuan", "tgl_lahir" => 23, "jurusan" => "ANIMASI", "kelas" => 11, "mtk" => 78, "pjok" => 84, "visual" => 9, "auditori" => 6, "kinestetik" => 1, "skor" => 81],
-            // ["jk" => "laki-laki", "tgl_lahir" => 24, "jurusan" => "PPLG", "kelas" => 11, "mtk" => 80, "pjok" => 89, "visual" => 5, "auditori" => 4, "kinestetik" => 7, "skor" => 84.5],
-            // ["jk" => "perempuan", "tgl_lahir" => 21, "jurusan" => "ANIMASI", "kelas" => 12, "mtk" => 77, "pjok" => 90, "visual" => 7, "auditori" => 7, "kinestetik" => 2, "skor" => 83.5],
-        ];
-
+        // ===== Predict
         // preprocessing data
-        $userInput = new \Rubix\ML\Datasets\Unlabeled($userInput);
-
-        $userInput->apply(new \App\RubixCustom\Transformer\CustomLabelTransformer())
+        $testing->apply(new \App\RubixCustom\Transformer\CustomLabelTransformer())
             ->apply(new \Rubix\ML\Transformers\ZScaleStandardizer());
 
         // predict the data
-        $prediction = $estimator->predict($userInput);
+        $prediction = $estimator->predict($testing);
+
+        // ===== Evaluate
+        $metric = new \Rubix\ML\CrossValidation\Metrics\Accuracy();
+        $score = $metric->score($prediction, $testing->labels());
+
+        // $userInput = [
+        //     ["jk" => "laki-laki", "tgl_lahir" => 18, "jurusan" => "TKJ", "kelas" => 10, "mtk" => 75, "pjok" => 80, "visual" => 8, "auditori" => 4, "kinestetik" => 4, "skor" => 77.5],
+        //     // ["jk" => "perempuan", "tgl_lahir" => 23, "jurusan" => "ANIMASI", "kelas" => 11, "mtk" => 78, "pjok" => 84, "visual" => 9, "auditori" => 6, "kinestetik" => 1, "skor" => 81],
+        //     // ["jk" => "laki-laki", "tgl_lahir" => 24, "jurusan" => "PPLG", "kelas" => 11, "mtk" => 80, "pjok" => 89, "visual" => 5, "auditori" => 4, "kinestetik" => 7, "skor" => 84.5],
+        //     // ["jk" => "perempuan", "tgl_lahir" => 21, "jurusan" => "ANIMASI", "kelas" => 12, "mtk" => 77, "pjok" => 90, "visual" => 7, "auditori" => 7, "kinestetik" => 2, "skor" => 83.5],
+        // ];
+
+        // // preprocessing data
+        // $userInput = new \Rubix\ML\Datasets\Unlabeled($userInput);
+
+        // $userInput->apply(new \App\RubixCustom\Transformer\CustomLabelTransformer())
+        //     ->apply(new \Rubix\ML\Transformers\ZScaleStandardizer());
+
+        // // predict the data
+        // $prediction = $estimator->predict($userInput);
 
         return response()->json([
             'score' => $score,
