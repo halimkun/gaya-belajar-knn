@@ -60,6 +60,10 @@ class LearningStyleController extends Controller
     {
         $learningStyle = LearningStyle::find($id);
 
+        if (in_array(\Str::lower($learningStyle->type), ['visual', 'auditory', 'kinesthetic'])) {
+            return Redirect::back()->with('error', 'You cannot edit default learning styles');
+        }
+
         return view('learning-style.edit', compact('learningStyle'));
     }
 
@@ -68,6 +72,10 @@ class LearningStyleController extends Controller
      */
     public function update(LearningStyleRequest $request, LearningStyle $learningStyle): RedirectResponse
     {
+        if (in_array(\Str::lower($learningStyle->type), ['visual', 'auditory', 'kinesthetic'])) {
+            return Redirect::back()->with('error', 'You cannot edit default learning styles');
+        }
+
         $learningStyle->update($request->validated());
 
         return Redirect::route('learning-styles.index')
@@ -76,7 +84,13 @@ class LearningStyleController extends Controller
 
     public function destroy($id): RedirectResponse
     {
-        LearningStyle::find($id)->delete();
+        $learningStyle = LearningStyle::find($id);
+
+        if (in_array(\Str::lower($learningStyle->type), ['visual', 'auditory', 'kinesthetic'])) {
+            return Redirect::back()->with('error', 'You cannot delete default learning styles');
+        }
+
+        $learningStyle->delete();
 
         return Redirect::route('learning-styles.index')
             ->with('success', 'LearningStyle deleted successfully');
