@@ -16,7 +16,7 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <h1 class="text-lg font-bold">Lengkapi Data Diri Anda 📝</h1>
-                                <p class="text-sm text-gray-400">Silahkan lengkapi data diri anda terlebih dahulu sebelum melanjutkan.</p>`
+                                <p class="text-sm text-gray-400">Silahkan lengkapi data diri anda terlebih dahulu sebelum melanjutkan.</p>
                             </div>
                             <a href="{{ route('profile.edit', ['ref' => route('dashboard')]) }}" class="rounded-lg bg-indigo-500 px-4 py-2 text-sm text-white hover:bg-indigo-700">Lengkapi Data Diri</a>
                         </div>
