@@ -40,6 +40,9 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Seeding learning styles...');
         $this->call(LearningStyleSeeder::class);
 
+        $this->command->info('Seeding Educational Content...');
+        $this->call(EducationalContentSeeder::class);
+
         $this->command->info('Seeding questions...');
         $this->call(QuestionSeeder::class);
 
