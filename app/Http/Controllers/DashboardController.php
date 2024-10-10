@@ -66,15 +66,15 @@ class DashboardController extends Controller
 
         // Ekstrak data jumlah untuk perempuan, laki-laki, dan lainnya berdasarkan label
         $dataJmlLabelByGender['perempuanData'] = $dataJmlLabelByGender['label']->map(function ($label) use ($jmlLabelByGender) {
-            return $jmlLabelByGender->get('Perempuan')->where('label', $label)->pluck('jml')->first() ?? 0;
+            return $jmlLabelByGender?->get('Perempuan')?->where('label', $label)?->pluck('jml')?->first() ?? 0;
         });
 
         $dataJmlLabelByGender['lakiData'] = $dataJmlLabelByGender['label']->map(function ($label) use ($jmlLabelByGender) {
-            return $jmlLabelByGender->get('Laki-Laki')->where('label', $label)->pluck('jml')->first() ?? 0;
+            return $jmlLabelByGender?->get('Laki-Laki')?->where('label', $label)?->pluck('jml')?->first() ?? 0;
         });
 
         $dataJmlLabelByGender['otherData'] = $dataJmlLabelByGender['label']->map(function ($label) use ($jmlLabelByGender) {
-            return $jmlLabelByGender->get('')->where('label', $label)->pluck('jml')->first() ?? 0;
+            return $jmlLabelByGender?->get('')?->where('label', $label)?->pluck('jml')?->first() ?? 0;
         });
 
         return $dataJmlLabelByGender;
