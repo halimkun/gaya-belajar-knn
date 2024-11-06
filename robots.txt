@@ -1,2 +1,13 @@
 User-agent: *
-Disallow:
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /learning-materials/
+Disallow: /users/
+Disallow: /answers/
+Disallow: /datasets/
+Disallow: /questions/
+Disallow: /assessments/
+Disallow: /learning-styles/
+Disallow: /assessment-answers/
+Disallow: /user-learning-styles/
