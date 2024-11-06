@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\CustomNumberHelper;
+use Illuminate\View\View;
 use App\Models\Assessment;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Helpers\CustomNumberHelper;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\AssessmentRequest;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 
 class AssessmentController extends Controller
 {
@@ -30,9 +31,13 @@ class AssessmentController extends Controller
     public function create(): View | RedirectResponse
     {
         // is admin
-        if (auth()->user()->hasRole('admin')) {
+        if (Auth::user()->hasRole('admin')) {
             return Redirect::route('assessments.index')
                 ->with('error', 'You are not allowed to create assessment. Only student can create assessment.');
+        }
+
+        if (!Auth::user()->isDetailComplete()) {
+            return redirect()->route('profile.edit')->with('error', 'Please complete your profile first.');
         }
 
         $assessment = new Assessment();
@@ -46,9 +51,19 @@ class AssessmentController extends Controller
      */
     public function store(AssessmentRequest $request): RedirectResponse
     {
+        // is admin
+        if (Auth::user()->hasRole('admin')) {
+            return Redirect::route('assessments.index')
+                ->with('error', 'You are not allowed to create assessment. Only student can create assessment.');
+        }
+
+        if (!Auth::user()->isDetailComplete()) {
+            return redirect()->route('profile.edit')->with('error', 'Please complete your profile first.');
+        }
+
         \Illuminate\Support\Facades\DB::transaction(function () use ($request) {
             $assessment = Assessment::create([
-                'user_id' => auth()->id(),
+                'user_id' => Auth::user()->id,
             ]);
 
             // Remove user_id from the request
@@ -76,7 +91,7 @@ class AssessmentController extends Controller
             \App\Models\AssessmentAnswer::insert($assessment_answers);
         });
 
-        $assessment = Assessment::with('assessmentAnswers.answer.learningStyle')->where('user_id', auth()->id())->latest()->first();
+        $assessment = Assessment::with(['assessmentAnswers', 'assessmentAnswers.answer.learningStyle'])->where('user_id', auth()->id())->latest()->first();
         if ($assessment) {
             $score = \App\Helpers\ScoreHelper::calculateLearningStyleScore($assessment->assessmentAnswers);
 
@@ -108,29 +123,37 @@ class AssessmentController extends Controller
             // Calculate the score safely
             $datasetOthersData['skor'] = count($datasetOthersData) > 0 ? $average / count($datasetOthersData) : 0;
 
+            // prediction
+            $prediction = \App\Helpers\KNNHelper::predict(array_merge($score, $datasetOthersData));
+
+            // predictions is array of object e.g : {'Visual': 80.0, 'Vis-Kin': 20.0}
+            $results = collect($prediction['results'][0] ?? []);
+            $max = $results->max();
+
             // Merge final data and predict label
             $finalData = array_merge($score, $datasetOthersData);
-            $finalData['label'] = \App\Helpers\KNNHelper::predict($finalData);
+            $finalData['label'] = $results->search($max);
 
             $inputFinalData = array_merge($finalData, [
-                'nama'      => auth()->user()->name,
-                'jk'        => auth()->user()->siswaDetail->jk,
-                'tgl_lahir' => auth()->user()->siswaDetail->tanggal_lahir,
-                'jurusan'   => auth()->user()->siswaDetail->jurusan,
-                'kelas'     => CustomNumberHelper::toArabic(auth()->user()->siswaDetail->kelas),
+                'nama'      => Auth::user()->name,
+                'jk'        => Auth::user()->siswaDetail->jk,
+                'tgl_lahir' => Auth::user()->siswaDetail->tanggal_lahir,
+                'jurusan'   => Auth::user()->siswaDetail->jurusan,
+                'kelas'     => CustomNumberHelper::toArabic(Auth::user()->siswaDetail->kelas),
             ]);
 
             \App\Models\Dataset::create($inputFinalData);
             $lastDataset = \App\Models\Dataset::latest()->first();
 
             $assessment->update([
-                'dataset_id' => $lastDataset->id,
+                'dataset_id'     => $lastDataset->id,
+                'raw_percentage' => $results->toJson(),
             ]);
         } else {
             return redirect()->back()->with('error', 'Terjadi masalah saat menyimpan data. Silahkan coba lagi atau hubungi admin.');
         }
 
-        if (auth()->user()->hasRole('admin')) {
+        if (Auth::user()->hasRole('admin')) {
             return Redirect::route('assessments.index')->with('success', 'Assessment created successfully.');
         }
 
@@ -145,7 +168,9 @@ class AssessmentController extends Controller
         $assessment = Assessment::find($id);
         $answers = \App\Models\AssessmentAnswer::with('question.answers')->where('assessment_id', $id)->get();
 
-        return view('assessment.show', compact('assessment', 'answers'));
+        $percentage = json_decode($assessment->raw_percentage, true);
+
+        return view('assessment.show', compact('assessment', 'answers', 'percentage'));
     }
 
     /**
