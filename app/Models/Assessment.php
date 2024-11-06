@@ -44,7 +44,7 @@ class Assessment extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['user_id', 'dataset_id'];
+    protected $fillable = ['user_id', 'dataset_id', 'raw_percentage'];
 
 
     /**
@@ -54,7 +54,7 @@ class Assessment extends Model
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -62,7 +62,7 @@ class Assessment extends Model
     {
         return $this->hasMany(\App\Models\AssessmentAnswer::class, 'assessment_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -70,7 +70,7 @@ class Assessment extends Model
     {
         return $this->hasMany(\App\Models\UserLearningStyle::class, 'id', 'assessment_id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

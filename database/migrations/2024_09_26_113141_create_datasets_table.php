@@ -35,6 +35,7 @@ return new class extends Migration
         // alter columns to assessments after user_id table to foreign key with datasets table
         Schema::table('assessments', function (Blueprint $table) {
             $table->foreignId('dataset_id')->after('user_id')->nullable()->default(null)->constrained()->onDelete('cascade');
+            $table->text('raw_percentage')->after('dataset_id')->nullable()->default(null);
         });
     }
 
