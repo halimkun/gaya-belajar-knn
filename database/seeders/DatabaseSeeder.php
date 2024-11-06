@@ -17,16 +17,16 @@ class DatabaseSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // Create role guru and admin
-        foreach (['guru', 'siswa'] as $key => $value) {
+        // Create role admin and admin
+        foreach (['admin', 'siswa'] as $key => $value) {
             \Spatie\Permission\Models\Role::create(['name' => $value]);
         }
 
         // Create demo users
         User::factory()->create([
-            'name'  => 'Guru',
-            'email' => 'guru@mail.com',
-        ])->assignRole('guru');
+            'name'  => 'admin',
+            'email' => 'admin@mail.com',
+        ])->assignRole('admin');
 
         User::factory()->create([
             'name'  => 'Siswa',

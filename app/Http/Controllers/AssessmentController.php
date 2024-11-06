@@ -29,8 +29,8 @@ class AssessmentController extends Controller
      */
     public function create(): View | RedirectResponse
     {
-        // is guru
-        if (auth()->user()->hasRole('guru')) {
+        // is admin
+        if (auth()->user()->hasRole('admin')) {
             return Redirect::route('assessments.index')
                 ->with('error', 'You are not allowed to create assessment. Only student can create assessment.');
         }
@@ -130,7 +130,7 @@ class AssessmentController extends Controller
             return redirect()->back()->with('error', 'Terjadi masalah saat menyimpan data. Silahkan coba lagi atau hubungi admin.');
         }
 
-        if (auth()->user()->hasRole('guru')) {
+        if (auth()->user()->hasRole('admin')) {
             return Redirect::route('assessments.index')->with('success', 'Assessment created successfully.');
         }
 

@@ -46,7 +46,7 @@
                                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">
                                                     @if (!empty($user->getRoleNames()))
                                                         @foreach ($user->getRoleNames() as $v)
-                                                            <div class="{{ $v == 'guru' ? 'bg-amber-100 text-amber-800 dark:bg-amber-700/50 dark:text-amber-400' : 'bg-sky-100 text-sky-800 dark:bg-sky-700/50 dark:text-sky-400' }} inline-flex rounded-full px-2 text-xs font-semibold leading-5">
+                                                            <div class="{{ $v == 'admin' ? 'bg-amber-100 text-amber-800 dark:bg-amber-700/50 dark:text-amber-400' : 'bg-sky-100 text-sky-800 dark:bg-sky-700/50 dark:text-sky-400' }} inline-flex rounded-full px-2 text-xs font-semibold leading-5">
                                                                 {{ $v }}
                                                             </div>
                                                         @endforeach

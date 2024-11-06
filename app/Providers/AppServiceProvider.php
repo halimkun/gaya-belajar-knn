@@ -22,10 +22,10 @@ class AppServiceProvider extends ServiceProvider
     {
         \Carbon\Carbon::setLocale(config('app.locale'));
 
-        // Gate::before(function ($user, $ability) {
-        //     if ($user->isAdmin()) {
-        //         return true;
-        //     }
-        // });
+        Gate::before(function ($user, $ability) {
+            if ($user->isAdmin()) {
+                return true;
+            }
+        });
     }
 }

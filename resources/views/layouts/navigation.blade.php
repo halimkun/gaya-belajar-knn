@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    @if (Auth()->user()->hasRole('guru'))
+                    @if (Auth()->user()->hasRole('admin'))
                         @foreach (['assessments', 'educational contents', 'learning styles', 'datasets', 'users'] as $item)
                             <x-nav-link :href="route(Str::replace(' ', '-', $item) . '.index')" :active="request()->routeIs(Str::replace(' ', '-', $item) . '.index')">
                                 {{ __(ucfirst($item)) }}
