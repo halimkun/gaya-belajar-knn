@@ -15,7 +15,7 @@ class KNNHelper
             // Memeriksa apakah respons berhasil
             if ($response->successful()) {
                 // Mengembalikan prediksi dari respons JSON
-                return $response->json()['prediction'] ?? null; // Mengembalikan null jika 'prediction' tidak ada
+                return $response->json(); // Mengembalikan null jika 'prediction' tidak ada
             } else {
                 // Menangani respons yang tidak berhasil
                 \Log::error('Prediction API error: ' . $response->body());
