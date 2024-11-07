@@ -8,7 +8,7 @@
 
     <div class="mb space-y-3">
         @foreach ($questions as $k => $i)
-            <div class="w-full p-5 text-gray-200 dark:text-white">
+            <div class="w-full p-5 text-gray-800 dark:text-gray-200">
                 {{ $i->question }}
 
                 @php $name = $i->type.'_'.($i->id + 8); @endphp
@@ -16,7 +16,7 @@
                 <div class="mt-2">
                     @if ($i->type == 'number')
                         @php
-                            $randomValue = rand(0, 70);
+                            $randomValue = rand(50, 95);
                         @endphp
                         <input min="0" max="100" type="number" name="{{ $name }}" id="{{ $i->id }}" class="mt-1 block w-full max-w-xl rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white" value="{{ old($i->id, $randomValue) }}" placeholder="{{ $i->question }}" />
                         <x-input-error class="mt-2" :messages="$errors->get($name)" />
