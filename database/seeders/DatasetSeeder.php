@@ -173,6 +173,18 @@ class DatasetSeeder extends Seeder
                 "skor"       => $skor,
             ];
 
+            // Set tgl_lahir based on kelas
+            if ($data['kelas'] == 10) {
+                // Usia 15-16 tahun untuk kelas 10
+                $data['tgl_lahir'] = $faker->dateTimeBetween('-16 years', '-15 years')->format('Y-m-d');
+            } elseif ($data['kelas'] == 11) {
+                // Usia 16-17 tahun untuk kelas 11
+                $data['tgl_lahir'] = $faker->dateTimeBetween('-17 years', '-16 years')->format('Y-m-d');
+            } else {
+                // Usia 17-18 tahun untuk kelas 12
+                $data['tgl_lahir'] = $faker->dateTimeBetween('-18 years', '-17 years')->format('Y-m-d');
+            }
+
             // Panggil helper untuk menentukan gaya belajar
             $data['label'] = LearningStyleHelper::determineLearningStyle($visual, $auditori, $kinestetik);
 

@@ -37,7 +37,7 @@
                                             <th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:dark:text-white">Skor</th>
                                             <th scope="col" class="bg-emerald-100 py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:bg-emerald-800 dark:dark:text-white">Label</th>
 
-                                            <th scope="col" class="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:dark:text-white text-center">
+                                            <th scope="col" class="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:dark:text-white">
                                                 <span class="fill-gray-500 dark:fill-gray-200">
                                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                                                         <path d="m240-160 40-160H120l20-80h160l40-160H180l20-80h160l40-160h80l-40 160h160l40-160h80l-40 160h160l-20 80H660l-40 160h160l-20 80H600l-40 160h-80l40-160H360l-40 160h-80Zm140-240h160l40-160H420l-40 160Z" />
@@ -67,12 +67,12 @@
                                                 </td>
                                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->jurusan }}</td>
                                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->kelas }}</td>
-                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->mtk }}</td>
-                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->pjok }}</td>
-                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->visual }}</td>
-                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->auditori }}</td>
-                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->kinestetik }}</td>
-                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->skor }}</td>
+                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200 font-mono">{{ $dataset->mtk }}</td>
+                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200 font-mono">{{ $dataset->pjok }}</td>
+                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200 font-mono">{{ $dataset->visual }}</td>
+                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200 font-mono">{{ $dataset->auditori }}</td>
+                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200 font-mono">{{ $dataset->kinestetik }}</td>
+                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200 font-mono">{{ number_format($dataset->skor, 6) }}</td>
                                                 <td class="{{ $dataset->label ? 'bg-emerald-100 dark:bg-emerald-800' : 'bg-rose-100 dark:bg-rose-800' }} whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200">{{ $dataset->label }}</td>
 
                                                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
