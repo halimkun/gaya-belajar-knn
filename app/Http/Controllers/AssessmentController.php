@@ -169,8 +169,26 @@ class AssessmentController extends Controller
         $answers = \App\Models\AssessmentAnswer::with('question.answers')->where('assessment_id', $id)->get();
 
         $percentage = json_decode($assessment->raw_percentage, true);
+        if (!$assessment->ai_recomendation) {
+            $age = Auth::user()->siswaDetail->tanggal_lahir;
+            $ageString = $age->diffForHumans(null, true);
 
-        return view('assessment.show', compact('assessment', 'answers', 'percentage'));
+            $prompt = "Berdasarkan data berikut: Nama: " . Auth::user()->name .
+                ", Kelas: " . Auth::user()->siswaDetail->kelas .
+                ", Jurusan: " . Auth::user()->siswaDetail->jurusan .
+                ", Usia: " . $ageString .
+                ", Hasil KNN: " . json_encode($percentage) .
+                ", Nilai Matematika: " . ($assessment->dataset->mtk ?? 'Tidak ada terdata') .
+                ", Nilai PJOK: " . ($assessment->dataset->pjok ?? 'Tidak ada terdata') .
+                ", Rangkum hasil tes, lalu buatkan sebuah pernyataan yang dapat membantu siswa untuk memahami dirinya sendiri. buat dalam bentuk kalimat yang mudah dipahami, jelas, dan tidak membingungkan. jangan tampilkan lagi hasil tes, hanya pernyataan yang membantu siswa memahami dirinya sendiri.";
+
+            $gemini = new \App\Http\Controllers\GeminiApiController();
+            $recomendation = $gemini->recomend($prompt);
+
+            $assessment->update([
+                'ai_recomendation' => $recomendation,
+            ]);
+        }
     }
 
     /**

@@ -44,7 +44,7 @@ class Assessment extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['user_id', 'dataset_id', 'raw_percentage'];
+    protected $fillable = ['user_id', 'dataset_id', 'raw_percentage', 'raw_neighbors', 'ai_recomendation'];
 
 
     /**
