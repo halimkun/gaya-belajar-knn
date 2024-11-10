@@ -63,20 +63,55 @@
                         </div>
                     </div>
 
-                    <div class="shadow sm:rounded-lg sm:p-8 border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-700 dark:bg-emerald-900 dark:text-emerald-200">
+                    <div class="bg-white p-4 shadow dark:bg-gray-800 dark:text-white sm:rounded-lg sm:p-8">
                         <div class="w-full">
                             <div class="w-full sm:flex sm:items-center">
                                 <div class="sm:flex-auto">
-                                    <h1 class="text-base font-semibold leading-6">Rekomendasi</h1>
-                                    <p class="text-sm">Hasil rekomendasi ini dibuat secara otomatis oleh AI.</p>
+                                    <h1 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">Gaya Belajar</h1>
+                                    <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">daftar gaya belajar dengan jarak terdekat.</p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="mt-5 flow-root">
-                            {{-- TODO : buat rekomendasi berdasarkan hasil penilaian yang terhubung ke AI (cari referensi) --}}
+                            <table class="table w-full">
+                                <thead class="rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white">
+                                    <tr>
+                                        <th class="px-4 py-2 text-left">No.</th>
+                                        <th class="px-4 py-2 text-left">Gaya Belajar</th>
+                                        <th class="px-4 py-2 text-right">Jarak</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($neighbors as $neighbor)
+                                        <tr class="{{ $loop->first ? 'bg-indigo-50 dark:bg-indigo-900/50' : 'bg-white dark:bg-gray-800' }} dark:text-white">
+                                            <td class="px-4 py-2">{{ $loop->iteration }}.</td>
+                                            <td class="px-4 py-2">{{ $neighbor['label'] }}</td>
+                                            <td class="px-4 py-2 text-right">{{ number_format($neighbor['distance'], 4) }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="mx-auto w-full max-w-7xl space-y-6 sm:px-6 lg:px-8">
+            <div class="border-emerald-200 bg-emerald-50 text-emerald-800 shadow dark:border-emerald-700 dark:bg-emerald-900 dark:text-emerald-200 sm:rounded-lg sm:p-8">
+                <div class="w-full">
+                    <div class="w-full sm:flex sm:items-center">
+                        <div class="sm:flex-auto">
+                            <h1 class="text-base font-semibold leading-6">Rekomendasi</h1>
+                            <p class="text-sm">Hasil rekomendasi ini dibuat secara otomatis oleh AI.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5 flow-root">
+                    {!! Str::markdown($assessment->ai_recomendation) !!}
                 </div>
             </div>
         </div>

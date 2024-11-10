@@ -36,6 +36,7 @@ return new class extends Migration
         Schema::table('assessments', function (Blueprint $table) {
             $table->foreignId('dataset_id')->after('user_id')->nullable()->default(null)->constrained()->onDelete('cascade');
             $table->text('raw_percentage')->after('dataset_id')->nullable()->default(null);
+            $table->text('raw_neighbors')->after('raw_percentage')->nullable()->default(null);
             $table->text('ai_recomendation')->after('raw_percentage')->nullable()->default(null);
         });
     }
