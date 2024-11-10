@@ -54,6 +54,11 @@ class SiswaDetail extends Model
      */
     protected $fillable = [ 'user_id', 'kelas', 'jurusan', 'tempat_lahir', 'tanggal_lahir', 'no_hp', 'alamat' ];
 
+    // cast tgl_lahir to date
+    protected $casts = [
+        'tanggal_lahir' => 'date',
+    ];
+
     /**
      * The attributes that should be cast.
      *
