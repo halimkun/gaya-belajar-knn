@@ -24,9 +24,12 @@
                         @endforeach
                     @endif
 
-                    {{-- TODO : set menu siswa --}}
                     @if (Auth()->user()->hasRole('siswa'))
                         @if (Auth()->user()->assessments && Auth()->user()->assessments->count() > 0)
+                            <x-nav-link :href="route('assessments.index')" :active="request()->routeIs('assessments.index')">
+                                {{ __('Assessment') }}
+                            </x-nav-link>
+
                             <x-nav-link :href="route('learning-materials.index')" :active="request()->routeIs('learning-materials.index')">
                                 {{ __('Meterial Pembelajaran') }}
                                 <span class="ml-1 animate-bounce">💎</span>

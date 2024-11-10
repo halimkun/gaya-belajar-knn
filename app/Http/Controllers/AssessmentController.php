@@ -19,7 +19,11 @@ class AssessmentController extends Controller
     public function index(Request $request): View
     {
         // $assessments = Assessment::paginate();
-        $assessments = Assessment::with('user')->paginate();
+        if (Auth::user()->hasRole('admin')) {
+            $assessments = Assessment::with('user')->paginate();
+        } else {
+            $assessments = Assessment::with('user')->where('user_id', Auth::user()->id)->paginate();
+        }
 
         return view('assessment.index', compact('assessments'))
             ->with('i', ($request->input('page', 1) - 1) * $assessments->perPage());
@@ -120,19 +124,24 @@ class AssessmentController extends Controller
                 $index++;
             }
 
+            $weight_mtk = 0.4;
+            $weight_pjok = 0.4;
+            $weight_learning_style = 0.2; // Jika gaya belajar (visual, auditori, kinestetik) penting
+
+            $total_learning_style = $score['visual'] + $score['auditori'] + $score['kinestetik'];
+            $average_learning_style = $total_learning_style / 3; // Menghitung rata-rata dari ketiga jenis gaya belajar
+
+            $skor = ($datasetOthersData['mtk'] * $weight_mtk) + ($datasetOthersData['pjok'] * $weight_pjok) + ($average_learning_style * $weight_learning_style);
+
             // Calculate the score safely
-            $datasetOthersData['skor'] = count($datasetOthersData) > 0 ? $average / count($datasetOthersData) : 0;
+            $datasetOthersData['skor'] = $skor;
 
             // prediction
             $prediction = \App\Helpers\KNNHelper::predict(array_merge($score, $datasetOthersData));
 
-            // predictions is array of object e.g : {'Visual': 80.0, 'Vis-Kin': 20.0}
-            $results = collect($prediction['results'][0] ?? []);
-            $max = $results->max();
-
             // Merge final data and predict label
             $finalData = array_merge($score, $datasetOthersData);
-            $finalData['label'] = $results->search($max);
+            $finalData['label'] = $prediction['predicted_label'];
 
             $inputFinalData = array_merge($finalData, [
                 'nama'      => Auth::user()->name,
@@ -147,7 +156,8 @@ class AssessmentController extends Controller
 
             $assessment->update([
                 'dataset_id'     => $lastDataset->id,
-                'raw_percentage' => $results->toJson(),
+                'raw_percentage' => collect($prediction['percentage_predictions'])->toJson(),
+                'raw_neighbors' => collect($prediction['neighbors'])->toJson(),
             ]);
         } else {
             return redirect()->back()->with('error', 'Terjadi masalah saat menyimpan data. Silahkan coba lagi atau hubungi admin.');
@@ -169,6 +179,8 @@ class AssessmentController extends Controller
         $answers = \App\Models\AssessmentAnswer::with('question.answers')->where('assessment_id', $id)->get();
 
         $percentage = json_decode($assessment->raw_percentage, true);
+        $neighbors = json_decode($assessment->raw_neighbors, true);
+
         if (!$assessment->ai_recomendation) {
             $age = Auth::user()->siswaDetail->tanggal_lahir;
             $ageString = $age->diffForHumans(null, true);
@@ -189,6 +201,8 @@ class AssessmentController extends Controller
                 'ai_recomendation' => $recomendation,
             ]);
         }
+
+        return view('assessment.show', compact('assessment', 'answers', 'percentage', 'neighbors'));
     }
 
     /**
