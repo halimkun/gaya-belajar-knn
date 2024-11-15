@@ -9,8 +9,8 @@ class KNNHelper
     public static function predict(array $data)
     {
         try {
-            // Mengirim permintaan POST ke endpoint : https://knn-model.7p43.my.id/predict
-            $response = Http::post(env("MODEL_REST_URL", null), $data);
+            $baseUrl = rtrim(env("KNN_MODEL_BASE_URL", null), '/');
+            $response = Http::post($baseUrl . '/predict', $data);
 
             // Memeriksa apakah respons berhasil
             if ($response->successful()) {
