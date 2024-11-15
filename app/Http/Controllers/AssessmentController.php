@@ -138,7 +138,7 @@ class AssessmentController extends Controller
 
             // prediction
             $prediction = \App\Helpers\KNNHelper::predict(array_merge($score, $datasetOthersData));
-
+            
             // Merge final data and predict label
             $finalData = array_merge($score, $datasetOthersData);
             $finalData['label'] = $prediction['predicted_label'];
@@ -155,9 +155,12 @@ class AssessmentController extends Controller
             $lastDataset = \App\Models\Dataset::latest()->first();
 
             $assessment->update([
-                'dataset_id'     => $lastDataset->id,
-                'raw_percentage' => collect($prediction['percentage_predictions'])->toJson(),
-                'raw_neighbors' => collect($prediction['neighbors'])->toJson(),
+                'dataset_id'        => $lastDataset->id,
+
+                // 'raw_percentage' => collect($prediction['percentage_predictions'])->toJson(),
+                // 'raw_neighbors' => collect($prediction['neighbors'])->toJson(),
+
+                'nearest_neighbors' => collect($prediction['nearest_neighbors'])->toJson(),
             ]);
         } else {
             return redirect()->back()->with('error', 'Terjadi masalah saat menyimpan data. Silahkan coba lagi atau hubungi admin.');
@@ -178,8 +181,10 @@ class AssessmentController extends Controller
         $assessment = Assessment::find($id);
         $answers = \App\Models\AssessmentAnswer::with('question.answers')->where('assessment_id', $id)->get();
 
-        $percentage = json_decode($assessment->raw_percentage, true);
-        $neighbors = json_decode($assessment->raw_neighbors, true);
+        $nearest_neighbors = json_decode($assessment->nearest_neighbors, true);
+
+        // $percentage = json_decode($assessment?->raw_percentage, true);
+        // $neighbors = json_decode($assessment?->raw_neighbors, true);
 
         if (!$assessment->ai_recomendation) {
             $age = Auth::user()->siswaDetail->tanggal_lahir;
@@ -189,7 +194,7 @@ class AssessmentController extends Controller
                 ", Kelas: " . Auth::user()->siswaDetail->kelas .
                 ", Jurusan: " . Auth::user()->siswaDetail->jurusan .
                 ", Usia: " . $ageString .
-                ", Hasil KNN: " . json_encode($percentage) .
+                ", Hasil KNN (nearest_neighbors): " . json_encode($nearest_neighbors) .
                 ", Nilai Matematika: " . ($assessment->dataset->mtk ?? 'Tidak ada terdata') .
                 ", Nilai PJOK: " . ($assessment->dataset->pjok ?? 'Tidak ada terdata') .
                 ", Rangkum hasil tes, lalu buatkan sebuah pernyataan yang dapat membantu siswa untuk memahami dirinya sendiri. buat dalam bentuk kalimat yang mudah dipahami, jelas, dan tidak membingungkan. jangan tampilkan lagi hasil tes, hanya pernyataan yang membantu siswa memahami dirinya sendiri.";
@@ -202,7 +207,7 @@ class AssessmentController extends Controller
             ]);
         }
 
-        return view('assessment.show', compact('assessment', 'answers', 'percentage', 'neighbors'));
+        return view('assessment.show', compact('assessment', 'answers', 'nearest_neighbors'));
     }
 
     /**

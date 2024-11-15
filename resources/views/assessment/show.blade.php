@@ -12,6 +12,39 @@
                 <p class="mt-2"><span class="block sm:inline">Anda telah menyelesaikan penilaian gaya belajar Anda. Anda dapat mengakses materi pembelajaran untuk meningkatkan keterampilan Anda. Materi pembalajaran ini sudah disesuaikan dengan gaya belajar Anda. Jika Anda memerlukan bantuan lebih lanjut, jangan ragu untuk menghubungi kami.</span></p>
             </div>
         </div>
+        
+        <div class="mx-auto max-w-7xl w-full gap-4 sm:px-6 lg:flex-row lg:px-8">
+            <div class="bg-white p-4 w-full shadow dark:bg-gray-800 dark:text-white sm:rounded-lg sm:p-8">
+                <div class="w-full">
+                    <div class="w-full sm:flex sm:items-center">
+                        <div class="sm:flex-auto">
+                            <h1 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">Hasil Penilaian</h1>
+                            <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Hasil akhir penilaian gaya belajar Anda.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5 flow-root">
+                    <table class="table w-full table-auto">
+                        <thead class="rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white">
+                            <tr class="text-left">
+                                <th class="px-4 py-2">Nama Siswa</th>
+                                <th class="px-4 py-2">Tanggal Penilaian</th>
+                                <th class="px-4 py-2">Gaya Belajar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white dark:bg-gray-800 dark:text-white">
+                                <td class="px-4 py-2">{{ $assessment->user->name }}</td>
+                                <td class="px-4 py-2">{{ $assessment->created_at->translatedFormat('l, F j, Y') }}</td>
+                                <td class="px-4 py-2">{{ $assessment->dataset->label }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
 
         <div class="mx-auto flex h-full w-full max-w-7xl flex-col items-stretch gap-4 sm:px-6 lg:flex-row lg:px-8">
             <div class="w-full lg:w-1/3">
@@ -19,50 +52,20 @@
                     <div class="w-full">
                         <div class="w-full sm:flex sm:items-center">
                             <div class="sm:flex-auto">
-                                <h1 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">Persentase Gaya Belajar</h1>
-                                <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Persentase gaya belajar Anda berdasarkan hasil penilaian.</p>
+                                <h1 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">Visualisasi Pemilihan Gaya Belajar</h1>
+                                <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Semakin kecil jarak, semakin mirip gaya belajar.</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-5 flow-root">
-                        <canvas id="doughnutPercentage" class="h-64 w-full"></canvas>
+                    <div class="mt-5">
+                        <canvas id="doughnutPercentage" class="h-full w-full p-0 m-0"></canvas>
                     </div>
                 </div>
             </div>
 
             <div class="w-full lg:w-2/3">
                 <div class="flex flex-col gap-4">
-                    <div class="bg-white p-4 shadow dark:bg-gray-800 dark:text-white sm:rounded-lg sm:p-8">
-                        <div class="w-full">
-                            <div class="w-full sm:flex sm:items-center">
-                                <div class="sm:flex-auto">
-                                    <h1 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">Hasil Penilaian</h1>
-                                    <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Hasil akhir penilaian gaya belajar Anda.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-5 flow-root">
-                            <table class="table w-full table-auto">
-                                <thead class="rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white">
-                                    <tr class="text-left">
-                                        <th class="px-4 py-2">Nama Siswa</th>
-                                        <th class="px-4 py-2">Tanggal Penilaian</th>
-                                        <th class="px-4 py-2">Gaya Belajar</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="bg-white dark:bg-gray-800 dark:text-white">
-                                        <td class="px-4 py-2">{{ $assessment->user->name }}</td>
-                                        <td class="px-4 py-2">{{ $assessment->created_at->translatedFormat('l, F j, Y') }}</td>
-                                        <td class="px-4 py-2">{{ $assessment->dataset->label }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
                     <div class="bg-white p-4 shadow dark:bg-gray-800 dark:text-white sm:rounded-lg sm:p-8">
                         <div class="w-full">
                             <div class="w-full sm:flex sm:items-center">
@@ -83,7 +86,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($neighbors as $neighbor)
+                                    @foreach ($nearest_neighbors as $neighbor)
                                         <tr class="{{ $loop->first ? 'bg-indigo-50 dark:bg-indigo-900/50' : 'bg-white dark:bg-gray-800' }} dark:text-white">
                                             <td class="px-4 py-2">{{ $loop->iteration }}.</td>
                                             <td class="px-4 py-2">{{ $neighbor['label'] }}</td>
@@ -199,8 +202,8 @@
 
     @push('scripts')
         <script>
-            const percentage = @json(array_values($percentage));
-            const label = @json(array_keys($percentage));
+            const label      = @json(array_column($nearest_neighbors, 'label'));
+            const percentage = @json(array_column($nearest_neighbors, 'distance'));
 
             const darkModeColors = ['#ff6e6e', '#8b80f9', '#68f392', '#ff9f43', '#6ceefc', '#68f392', '#ff2c6d', '#ffe96a', '#7b88b1', '#303447', '#ffb4dc', '#90eeff', '#7dffb3'];
             const lightModeColors = ['#ff9999', '#b8b0ff', '#ffbc80', '#a3f7ff', '#a4f7b2', '#ff7b9e', '#fff4a3', '#a9b0cc', '#d1d3db', '#ffd1eb', '#c2f8ff', '#b0ffda'];
@@ -214,10 +217,9 @@
                 Chart.defaults.elements.line.borderColor = "rgba(255,255,0,0.4)";
             }
 
-            function createDoughnutChart(elementId, labels, data, options = {}) {
-                var ctx = document.getElementById(elementId).getContext('2d');
+            function createBarChart(elementId, labels, data, options = {}) {
                 new Chart(ctx, {
-                    type: 'doughnut',
+                    type: 'bar',
                     data: {
                         labels: labels,
                         datasets: [{
@@ -236,7 +238,7 @@
                 });
             }
 
-            createDoughnutChart('doughnutPercentage', label, percentage, {
+            createBarChart('doughnutPercentage', label, percentage, {
                 plugins: {
                     legend: {
                         display: true,
@@ -250,8 +252,7 @@
                     },
                     datalabels: {
                         formatter: (value, ctx) => {
-                            // get only 2 decimal places
-                            return value.toFixed(2) + '%';
+                            return value.toFixed(3);
                         },
                         color: isDark ? '#FFF' : '#2D3748',
                         font: {
