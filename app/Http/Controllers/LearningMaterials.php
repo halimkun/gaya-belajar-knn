@@ -30,6 +30,12 @@ class LearningMaterials extends Controller
         // get id of learning styles
         $learningStylesId = [];
         foreach ($expLearningStyles as $expLearningStyle) {
+            // if expLearningStyle has equal or more than 5 characters remove the last 2 characters
+            $charCount = strlen($expLearningStyle);
+            if ($charCount >= 5) {
+                $expLearningStyle = substr($expLearningStyle, 0, $charCount - 2);
+            }
+
             $learningStyle = \App\Models\LearningStyle::where('type', 'like', "%$expLearningStyle%")->first();
 
             if ($learningStyle) {
