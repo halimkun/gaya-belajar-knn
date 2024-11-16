@@ -7,6 +7,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/importance', [\App\Http\Controllers\ImportanceController::class, 'index'])->name('model.importance');
 Route::get('/ai/test', [\App\Http\Controllers\GeminiApiController::class, 'index'])->name('ai.test');
 
 Route::group(['middleware' => 'auth'], function () {
