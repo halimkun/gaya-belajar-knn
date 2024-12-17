@@ -15,17 +15,17 @@
 
                 <div class="mt-2">
                     @if ($i->type == 'number')
-                        @php
+                        {{-- @php
                             $randomValue = rand(50, 95);
-                        @endphp
-                        <input min="0" max="100" type="number" name="{{ $name }}" id="{{ $i->id }}" class="mt-1 block w-full max-w-xl rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white" value="{{ old($i->id, $randomValue) }}" placeholder="{{ $i->question }}" />
+                        @endphp --}}
+                        <input min="0" max="100" type="number" name="{{ $name }}" id="{{ $i->id }}" class="mt-1 block w-full max-w-xl rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white" value="{{ old($i->id) }}" placeholder="{{ $i->question }}" />
                         <x-input-error class="mt-2" :messages="$errors->get($name)" />
                     @elseif ($i->type == 'text')
                         <input type="text" name="{{ $name }}" id="{{ $i->id }}" class="mt-1 block w-full max-w-xl rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white" value="{{ old($i->id) }}" placeholder="{{ $i->question }}" />
                         <x-input-error class="mt-2" :messages="$errors->get($name)" />
                     @elseif($i->type == 'choice' || $i->type == 'multiple_choice')
                         @php
-                            $checkedId = rand(0, count($i->answers) - 1);
+                            // $checkedId = rand(0, count($i->answers) - 1);
                         @endphp
                         <div class="ml-1">
                             @foreach ($i->answers as $k => $answers)
@@ -33,7 +33,7 @@
                                     <label class="flex gap-1">
                                         <div>
                                             @if ($i->type == 'choice')
-                                                <input type="radio" name="{{ $name }}" value="{{ $answers->id }}" class="mr-2" {{ $k == $checkedId ? 'checked' : '' }}>
+                                                <input type="radio" name="{{ $name }}" value="{{ $answers->id }}" class="mr-2" {{ '' /*$k == $checkedId ? 'checked' : ''**/ }}>
                                             @elseif ($i->type == 'multiple_choice')
                                                 <input type="checkbox" name="{{ $name }}[]" value="{{ $answers->id }}" class="mr-2">
                                             @endif
