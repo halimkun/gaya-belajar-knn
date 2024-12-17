@@ -14,12 +14,13 @@ class ProfileDetailUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'kelas' => ['required', 'string'],
-            'jurusan' => ['required', 'string'],
-            'tempat_lahir' => ['required', 'string'],
+            'kelas'         => ['required', 'string'],
+            'jurusan'       => ['required', 'string'],
+            'tempat_lahir'  => ['required', 'string'],
             'tanggal_lahir' => ['required', 'date'],
-            'no_hp' => ['required', 'numeric', 'digits_between:10,13'],
-            'alamat' => ['required', 'string'],
+            'no_hp'         => ['required', 'numeric', 'digits_between:10,13'],
+            'jenis_kelamin' => ['required', 'in:L,P'],
+            'alamat'        => ['required', 'string'],
         ];
     }
 }

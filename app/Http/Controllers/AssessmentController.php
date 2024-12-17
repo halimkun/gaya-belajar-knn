@@ -145,7 +145,7 @@ class AssessmentController extends Controller
 
             $inputFinalData = array_merge($finalData, [
                 'nama'      => Auth::user()->name,
-                'jk'        => Auth::user()->siswaDetail->jk,
+                'jk'        => Auth::user()->siswaDetail->jenis_kelamin == 'L' ? 'Laki-Laki' : 'Perempuan',
                 'tgl_lahir' => Auth::user()->siswaDetail->tanggal_lahir,
                 'jurusan'   => Auth::user()->siswaDetail->jurusan,
                 'kelas'     => CustomNumberHelper::toArabic(Auth::user()->siswaDetail->kelas),
