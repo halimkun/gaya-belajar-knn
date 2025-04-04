@@ -78,6 +78,8 @@
                                                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
                                                     {{-- <a href="{{ route('datasets.show', $dataset->id) }}" class="mr-2 font-bold text-gray-600 hover:text-gray-900">{{ __('Show') }}</a> --}}
                                                     <form action="{{ route('datasets.destroy', $dataset->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
                                                         <a href="{{ route('users.destroy', $dataset->id) }}" class="fill-red-900 font-bold text-red-600 hover:text-red-900 dark:fill-red-400 dark:hover:text-red-400" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;">
                                                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                                                                 <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />

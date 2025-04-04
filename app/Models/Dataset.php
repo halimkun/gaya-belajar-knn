@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Dataset extends Model
 {
-    use SoftDeletes;
+    // use SoftDeletes;
 
     protected $perPage = 20;
 

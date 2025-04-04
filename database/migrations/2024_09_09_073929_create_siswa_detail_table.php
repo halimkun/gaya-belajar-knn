@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('jurusan')->nullable();
             $table->string('tempat_lahir')->nullable();
             $table->date('tanggal_lahir')->nullable();
+            $table->string('jenis_kelamin')->enum(['L', 'P'])->nullable();
             $table->string('no_hp')->nullable();
             $table->text('alamat')->nullable();
             $table->timestamps();

@@ -52,7 +52,7 @@ class SiswaDetail extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [ 'user_id', 'kelas', 'jurusan', 'tempat_lahir', 'tanggal_lahir', 'no_hp', 'alamat' ];
+    protected $fillable = [ 'user_id', 'kelas', 'jurusan', 'tempat_lahir', 'tanggal_lahir', 'no_hp', 'alamat', 'jenis_kelamin' ];
 
     // cast tgl_lahir to date
     protected $casts = [
